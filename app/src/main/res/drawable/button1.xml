@@ -4,20 +4,20 @@
         <shape android:shape="rectangle" >
             <corners android:radius="10dip"/>
             <stroke android:width="6dip" android:color="@color/aquamarinf" />
-            <solid android:color="#acb5c4" />
+            <solid android:color="@color/white_gr" />
         </shape>
     </item>
     <item android:state_focused="true" >
         <shape android:shape="rectangle" >
             <corners android:radius="10dip"/>
-            <stroke android:width="4dip" android:color="#acb5c4" />
-            <solid android:color="#FF8F00" />
+            <stroke android:width="4dip" android:color="@color/white" />
+            <solid android:color="@color/white_gr" />
         </shape>
     </item>
     <item>
         <shape android:shape="rectangle" >
             <corners android:radius="10dip"/>
-            <stroke android:width="4dip" android:color="#acb5c4" />
+            <stroke android:width="4dip" android:color="@color/white" />
             <solid android:color="@color/aquamarinf" />
         </shape>
     </item>

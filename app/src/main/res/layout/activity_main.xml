@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
+    android:background="@drawable/background_dark"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -13,20 +13,26 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="160dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp">
 
-        <ImageView
-            android:id="@+id/img"
+        <TextView
+            android:id="@+id/logo"
             android:layout_width="match_parent"
-            android:layout_height="330dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="20sp"
-            android:padding="10dp"
-            app:srcCompat="@drawable/browse_image"
-            android:background="@drawable/fields"/>
+            android:fontFamily="monospace"
+            android:background="#66393636"
+            android:padding="10sp"
+            android:text="FiBasket Food"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="52sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/textLogin"
@@ -35,10 +41,12 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="20sp"
+            android:fontFamily="monospace"
+            android:background="#66393636"
             android:padding="10sp"
-            android:text="Кошик на кожен день"
+            android:text="Покупки на кожен день"
             android:textAlignment="center"
-            android:textColor="@color/white_gr"
+            android:textColor="@color/white"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -66,7 +74,7 @@
             android:padding="10sp"
             android:text="ВХІД"
             android:textAllCaps="false"
-            android:textColor="@color/white_gr"
+            android:textColor="@color/white"
             android:textColorHint="@color/colorPrimaryDark"
             android:textSize="14sp" />
 
@@ -79,7 +87,7 @@
             android:layout_weight="1"
             android:background="@drawable/button2"
             android:padding="10sp"
-            android:textColor="@color/white_gr"
+            android:textColor="@color/white"
             android:textColorHint="@color/colorPrimaryDark"
             android:text="Зареєструватись"
             android:textSize="14sp" />
