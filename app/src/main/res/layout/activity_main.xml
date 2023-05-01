@@ -64,7 +64,7 @@
         android:layout_marginRight="20dp">
 
         <Button
-            android:id="@+id/btnSignIn"
+            android:id="@+id/btnSignInS"
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -76,10 +76,11 @@
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textColorHint="@color/colorPrimaryDark"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:onClick="SignInA" />
 
         <Button
-            android:id="@+id/btnSignUp"
+            android:id="@+id/btnSignUpS"
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -90,7 +91,8 @@
             android:textColor="@color/white"
             android:textColorHint="@color/colorPrimaryDark"
             android:text="Зареєструватись"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:onClick="SignUpA" />
 
     </LinearLayout>
 
