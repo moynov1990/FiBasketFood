@@ -25,3 +25,8 @@ public class SignUpActivity extends AppCompatActivity {
         txtSignIn = findViewById(R.id.txtSignIn);       // android:onClick="SignInA"
     }
 }
+
+
+
+//                        txtSignUp.setText("Зареєстровано");
+//                        btnSignUp.setClickable(false);
