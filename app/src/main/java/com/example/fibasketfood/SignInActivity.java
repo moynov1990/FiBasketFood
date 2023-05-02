@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.fibasketfood.Model.User;
 import com.google.firebase.database.DataSnapshot;
@@ -38,14 +40,25 @@ public class SignInActivity extends AppCompatActivity {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+//                ProgressBar mBar = new ProgressBar(SignInActivity.this);   //   проаналізувати реалізацію панелі прогресу завантаження
+
                 table_user.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        User user = dataSnapshot.child(edtTxtLogin.getText().toString()).getValue(User.class);
-                        if(user.getPassword().equals(edtTxtPassword.getText().toString()))
 
+                        if (dataSnapshot.child(edtTxtLogin.getText().toString()).exists()) {        //перевіряємо чи існує користувач в базі
+
+                            User user = dataSnapshot.child(edtTxtLogin.getText().toString()).getValue(User.class);      //отримуємо інформацію про User
+                            if (user.getPassword().equals(edtTxtPassword.getText().toString())) {
+                                Toast.makeText(SignInActivity.this, "Sign in successfully", Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(SignInActivity.this, "Sign in failed", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                        else
                         {
-
+                            Toast.makeText(SignInActivity.this, "User not exist", Toast.LENGTH_LONG).show();
                         }
                     }
 
