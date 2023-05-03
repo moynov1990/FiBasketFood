@@ -12,7 +12,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="120dp"
         android:layout_marginEnd="20dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,17 +23,17 @@
             android:id="@+id/edtTxtName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40sp"
-            android:layout_marginRight="40sp"
+            android:layout_marginLeft="30sp"
+            android:layout_marginRight="30sp"
             android:layout_marginBottom="10sp"
             android:background="@drawable/fields"
             android:fontFamily="monospace"
             android:hint="Ім'я"
-            android:padding="5sp"
+            android:padding="10sp"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:textSize="24sp"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -41,18 +41,17 @@
             android:id="@+id/edtTxtLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40sp"
-            android:layout_marginRight="40sp"
+            android:layout_marginLeft="30sp"
+            android:layout_marginRight="30sp"
             android:layout_marginBottom="10sp"
             android:background="@drawable/fields"
             android:fontFamily="monospace"
             android:hint="Номер телефону"
-            android:inputType="phone"
-            android:padding="5sp"
+            android:padding="10sp"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:textSize="24sp"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -60,17 +59,17 @@
             android:id="@+id/edtTxtPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40sp"
-            android:layout_marginRight="40sp"
+            android:layout_marginLeft="30sp"
+            android:layout_marginRight="30sp"
             android:layout_marginBottom="10sp"
             android:background="@drawable/fields"
             android:fontFamily="monospace"
             android:hint="Пароль"
-            android:padding="5sp"
+            android:padding="10sp"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:textSize="24sp"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -78,8 +77,8 @@
             android:id="@+id/btnSignUp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="70dp"
-            android:layout_marginRight="70dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
             android:layout_marginBottom="10sp"
             android:layout_weight="1"
             android:background="@drawable/button1"
@@ -90,7 +89,7 @@
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textColorHint="@color/colorPrimaryDark"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/txtSignIn"
@@ -101,14 +100,14 @@
             android:layout_marginRight="40dp"
             android:background="#66393636"
             android:fontFamily="monospace"
+            android:onClick="SignInA"
             android:padding="10sp"
             android:text="Вже маєте акаунт? Увійти"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:onClick="SignInA"/>
+            app:layout_constraintStart_toStartOf="parent" />
 
 
     </LinearLayout>

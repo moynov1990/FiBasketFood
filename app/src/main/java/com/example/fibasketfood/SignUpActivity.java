@@ -2,7 +2,9 @@ package com.example.fibasketfood;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -23,6 +25,12 @@ public class SignUpActivity extends AppCompatActivity {
         edtTxtPassword = findViewById(R.id.edtTxtPassword);
         btnSignUp = findViewById(R.id.btnSignUp);
         txtSignIn = findViewById(R.id.txtSignIn);       // android:onClick="SignInA"
+    }
+
+    public void SignInA(View view) {
+        Intent intent = new Intent(this, SignInActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
 

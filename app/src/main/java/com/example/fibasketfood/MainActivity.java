@@ -18,17 +18,23 @@ public class MainActivity extends AppCompatActivity {
 
         btnSignInS = findViewById(R.id.btnSignInS);
         btnSignUpS = findViewById(R.id.btnSignUpS);
-    }
 
-    public void SignInA(View view) {
-        Intent intent = new Intent(this, SignInActivity.class);
-        startActivity(intent);
-        finish();
-    }
+        btnSignInS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SignInActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
-    public void SignUpA(View view) {
-        Intent intent = new Intent(this, SignUpActivity.class);
-        startActivity(intent);
-        finish();
+        btnSignUpS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 }
