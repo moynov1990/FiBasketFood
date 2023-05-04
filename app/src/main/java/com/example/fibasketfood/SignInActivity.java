@@ -52,6 +52,9 @@ public class SignInActivity extends AppCompatActivity {
 
                             User user = dataSnapshot.child(edtTxtLogin.getText().toString()).getValue(User.class);      //отримуємо інформацію про User
                             if (user.getPassword().equals(edtTxtPassword.getText().toString())) {
+                                Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
+                                startActivity(intent);
+                                finish();
                                 Toast.makeText(SignInActivity.this, "Sign in successfully", Toast.LENGTH_LONG).show();
                             } else {
                                 Toast.makeText(SignInActivity.this, "Sign in failed", Toast.LENGTH_LONG).show();
