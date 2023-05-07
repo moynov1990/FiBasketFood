@@ -11,4 +11,7 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+    <string name="ShopList">Перелік покупок</string>
+    <string name="order">Замовлення</string>
+    <string name="sign_out">Вихід</string>
 </resources>

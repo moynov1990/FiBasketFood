@@ -49,7 +49,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:21.1.1'
     implementation 'com.google.firebase:firebase-database:20.2.1'
 
-    implementation 'com.androidx.support:cardview-v7:28.0'
+    implementation 'com.androidx.support:cardview-v7:28.1'
     implementation 'com.androidx.support:recycleview-v7:28.0'
     implementation 'squareup.picasso:2.5.2'
     implementation 'com.google.firebaseui:firebase-ui-database:1.2.0'
