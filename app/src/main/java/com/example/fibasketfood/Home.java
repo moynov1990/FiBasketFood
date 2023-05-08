@@ -3,6 +3,7 @@ package com.example.fibasketfood;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Toolbar;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -15,11 +16,16 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.fibasketfood.databinding.ActivityHomeBinding;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class Home extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityHomeBinding binding;
+    private Toolbar toolbar;
+    FirebaseDatabase database;
+    DatabaseReference category;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +34,14 @@ public class Home extends AppCompatActivity {
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("Menu");
+
         setSupportActionBar(binding.appBarHome.toolbar);
+
+        database = FirebaseDatabase.getInstance();     //init firebase
+        category = database.getReference("Category");
+
         binding.appBarHome.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

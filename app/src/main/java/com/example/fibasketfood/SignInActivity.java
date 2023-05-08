@@ -11,7 +11,9 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
+import com.example.fibasketfood.Common.Common;
 import com.example.fibasketfood.Model.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,10 +27,12 @@ public class SignInActivity extends AppCompatActivity {
     private Button btnSignIn;
     private TextView txtSignUp;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+
 
         edtTxtLogin = findViewById(R.id.edtTxtLogin);
         edtTxtPassword = findViewById(R.id.edtTxtPassword);
@@ -52,10 +56,10 @@ public class SignInActivity extends AppCompatActivity {
 
                             User user = dataSnapshot.child(edtTxtLogin.getText().toString()).getValue(User.class);      //отримуємо інформацію про User
                             if (user.getPassword().equals(edtTxtPassword.getText().toString())) {
-                                Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
-                                startActivity(intent);
+                                Intent homeIntent = new Intent(SignInActivity.this, Home.class);
+                                Common.currentUser = user;
+                                startActivity(homeIntent);
                                 finish();
-                                Toast.makeText(SignInActivity.this, "Sign in successfully", Toast.LENGTH_LONG).show();
                             } else {
                                 Toast.makeText(SignInActivity.this, "Sign in failed", Toast.LENGTH_LONG).show();
                             }
