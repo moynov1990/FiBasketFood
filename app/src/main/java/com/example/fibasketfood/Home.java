@@ -3,8 +3,10 @@ package com.example.fibasketfood;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.widget.TextView;
 import android.widget.Toolbar;
 
+import com.example.fibasketfood.Common.Common;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -14,6 +16,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fibasketfood.databinding.ActivityHomeBinding;
 import com.google.firebase.database.DatabaseReference;
@@ -26,6 +29,10 @@ public class Home extends AppCompatActivity {
     private Toolbar toolbar;
     FirebaseDatabase database;
     DatabaseReference category;
+    private TextView txtViewFullName;
+
+    RecyclerView recycler_menu;
+    RecyclerView.LayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +47,7 @@ public class Home extends AppCompatActivity {
         setSupportActionBar(binding.appBarHome.toolbar);
 
         database = FirebaseDatabase.getInstance();     //init firebase
-        category = database.getReference("Category");
+        category = database.getReference("Category");   // отримуэмо данні із бази із рядка category
 
         binding.appBarHome.fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +67,10 @@ public class Home extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        View headerView = navigationView.getHeaderView(0);      // відображення ім'я поточного користувача
+        txtViewFullName = findViewById(R.id.txtViewFullName);
+        txtViewFullName.setText(Common.currentUser.getName());
     }
 
     @Override
