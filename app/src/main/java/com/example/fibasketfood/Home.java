@@ -7,6 +7,8 @@ import android.widget.TextView;
 import android.widget.Toolbar;
 
 import com.example.fibasketfood.Common.Common;
+import com.example.fibasketfood.Model.Category;
+import com.example.fibasketfood.ViewHolder.MenuViewHolder;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -71,6 +73,17 @@ public class Home extends AppCompatActivity {
         View headerView = navigationView.getHeaderView(0);      // відображення ім'я поточного користувача
         txtViewFullName = findViewById(R.id.txtViewFullName);
         txtViewFullName.setText(Common.currentUser.getName());
+
+        recycler_menu = findViewById(R.id.recycler_menu);       //завантаження меню
+
+        loadMenu();
+    }
+
+    private void loadMenu() {
+
+        FirebaseRecyclerAdapter<Category, MenuViewHolder> adapter = new FirebaseRecyclerAdapter<Category, MenuViewHolder> (Category.class, R.layout.menu_item, MenuViewHolder.class, category) {
+
+        };
     }
 
     @Override
