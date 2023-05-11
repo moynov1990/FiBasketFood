@@ -81,7 +81,6 @@ public class Home extends AppCompatActivity {
 
     private void loadMenu() {
 
-        FirebaseRecyclerAdapter<Category, MenuViewHolder> adapter = new FirebaseRecyclerAdapter<Category, MenuViewHolder> (Category.class, R.layout.menu_item, MenuViewHolder.class, category) {
 
         };
     }
