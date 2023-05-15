@@ -11,6 +11,7 @@ import com.example.fibasketfood.Common.Common;
 import com.example.fibasketfood.Model.Category;
 import com.example.fibasketfood.ViewHolder.MenuViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -39,6 +40,9 @@ public class Home extends AppCompatActivity {
 
     RecyclerView recycler_menu;
     RecyclerView.LayoutManager layoutManager;
+
+    FirebaseRecyclerAdapter<Category, MenuViewHolder> adapter;
+    FirebaseRecyclerOptions<Category> options;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,9 +91,13 @@ public class Home extends AppCompatActivity {
     }
 
     private void loadMenu() {
-        FirebaseRecyclerAdapter<Category, MenuViewHolder> adapter = new FirebaseRecyclerAdapter<Category, MenuViewHolder>(Category.class, R.layout.menu_item, MenuViewHolder.class, category) {
+
+        options = new FirebaseRecyclerOptions.Builder<Category>().setQuery(category, Category.class).build();
+
+        adapter = new FirebaseRecyclerAdapter<Category, MenuViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull MenuViewHolder holder, int position, @NonNull Category model) {
+                holder.setDetails(getApplicationContext(), model.getTitle(), model.getImage());
 
             }
 
