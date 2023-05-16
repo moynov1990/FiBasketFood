@@ -5,9 +5,11 @@ import android.view.View;
 import android.view.Menu;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.example.fibasketfood.Common.Common;
+import com.example.fibasketfood.Interface.ItemClickListener;
 import com.example.fibasketfood.Model.Category;
 import com.example.fibasketfood.ViewHolder.MenuViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -28,6 +30,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.fibasketfood.databinding.ActivityHomeBinding;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 public class Home extends AppCompatActivity {
 
@@ -51,21 +54,15 @@ public class Home extends AppCompatActivity {
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Menu");
+//        toolbar = findViewById(R.id.toolbar);
+//        toolbar.setTitle("Menu");
 
-        setSupportActionBar(binding.appBarHome.toolbar);
+
 
         database = FirebaseDatabase.getInstance();     //init firebase
         category = database.getReference("Category");   // отримуэмо данні із бази із рядка category
 
-        binding.appBarHome.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
@@ -97,8 +94,16 @@ public class Home extends AppCompatActivity {
         adapter = new FirebaseRecyclerAdapter<Category, MenuViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull MenuViewHolder holder, int position, @NonNull Category model) {
-                holder.setDetails(getApplicationContext(), model.getTitle(), model.getImage());
-
+                holder.txtMenuName.setText(model.getName());
+                Picasso.get().load(model.getImage())
+                        .into(holder.imgView);
+                final Category clickItem = model;
+                holder.setItemClickListener(new ItemClickListener() {
+                    @Override
+                    public void onClick(View view, int position, boolean isLongClick) {
+                        Toast.makeText(Home.this, " " + clickItem.getName(), Toast.LENGTH_LONG).show();
+                    }
+                });
             }
 
             @NonNull
@@ -107,6 +112,7 @@ public class Home extends AppCompatActivity {
                 return null;
             }
         };
+        recycler_menu.setAdapter(adapter);
     }
 
 
