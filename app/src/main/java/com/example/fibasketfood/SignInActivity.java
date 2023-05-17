@@ -56,7 +56,7 @@ public class SignInActivity extends AppCompatActivity {
 
                             User user = dataSnapshot.child(edtTxtLogin.getText().toString()).getValue(User.class);      //отримуємо інформацію про User
                             if (user.getPassword().equals(edtTxtPassword.getText().toString())) {                       //перевіряємо чи співпадає пароль із тим що в базі
-                                Intent homeIntent = new Intent(SignInActivity.this, Home.class);
+                                Intent homeIntent = new Intent(SignInActivity.this, HomeActivity.class);
                                 Common.currentUser = user;                                                              //записуємо User в тимчасове сховище
                                 startActivity(homeIntent);
                                 finish();
