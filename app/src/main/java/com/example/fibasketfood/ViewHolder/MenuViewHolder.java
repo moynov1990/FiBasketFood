@@ -21,10 +21,10 @@ public class MenuViewHolder extends FirebaseRecyclerAdapter<Category, MenuViewHo
      * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
      * {@link FirebaseRecyclerOptions} for configuration options.
      *
-     * @param options
+     * @param mOptions
      */
-    public MenuViewHolder(@NonNull FirebaseRecyclerOptions<Category> options) {
-        super(options);
+    public MenuViewHolder(@NonNull FirebaseRecyclerOptions<Category> mOptions) {
+        super(mOptions);
     }
 
     @Override

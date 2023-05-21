@@ -20,7 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class HomeActivity extends AppCompatActivity {
 
     RecyclerView recyclerMenu;
-    FirebaseRecyclerOptions<Category> options;
+    FirebaseRecyclerOptions<Category> mOptions;
     MenuViewHolder menuViewHolder;
     DrawerLayout drawerLayout;
     ImageView imgMenu;
@@ -33,8 +33,8 @@ public class HomeActivity extends AppCompatActivity {
         recyclerMenu = findViewById(R.id.recyclerMenu);
         recyclerMenu.setLayoutManager(new LinearLayoutManager(this));
 
-        options = new FirebaseRecyclerOptions.Builder<Category>().setQuery(FirebaseDatabase.getInstance().getReference().child("category"), Category.class).build();
-        menuViewHolder = new MenuViewHolder(options);
+        mOptions = new FirebaseRecyclerOptions.Builder<Category>().setQuery(FirebaseDatabase.getInstance().getReference().child("category"), Category.class).build();
+        menuViewHolder = new MenuViewHolder(mOptions);
         recyclerMenu.setAdapter(menuViewHolder);
 
         drawerLayout = findViewById(R.id.drawerLayout);
