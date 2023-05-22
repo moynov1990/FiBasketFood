@@ -12,12 +12,13 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.fibasketfood.Interface.ItemClickListener;
 import com.example.fibasketfood.Model.Category;
 import com.example.fibasketfood.ViewHolder.MenuViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements ItemClickListener {
 
     RecyclerView recyclerMenu;
     FirebaseRecyclerOptions<Category> mOptions;
@@ -58,5 +59,10 @@ public class HomeActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         menuViewHolder.stopListening();
+    }
+
+    @Override
+    public void onClick(View view, int position, boolean isLongClick) {
+
     }
 }

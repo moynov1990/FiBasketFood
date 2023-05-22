@@ -53,6 +53,7 @@ public class FoodViewHolder extends FirebaseRecyclerAdapter<Food, FoodViewHolder
 
             txtFoodName = itemView.findViewById(R.id.txtFoodName);
             imgFoodView = itemView.findViewById(R.id.imgFoodView);
+
         }
     }
 }
