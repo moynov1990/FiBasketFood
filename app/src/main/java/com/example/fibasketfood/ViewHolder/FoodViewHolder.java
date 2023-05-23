@@ -22,10 +22,10 @@ public class FoodViewHolder extends FirebaseRecyclerAdapter<Food, FoodViewHolder
      * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
      * {@link FirebaseRecyclerOptions} for configuration options.
      *
-     * @param options
+     * @param fOptions
      */
-    public FoodViewHolder(@NonNull FirebaseRecyclerOptions<Food> options) {
-        super(options);
+    public FoodViewHolder(@NonNull FirebaseRecyclerOptions<Food> fOptions) {
+        super(fOptions);
     }
 
     @Override

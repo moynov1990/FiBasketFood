@@ -35,7 +35,7 @@ public class HomeActivity extends AppCompatActivity implements ItemClickListener
         recyclerMenu.setLayoutManager(new LinearLayoutManager(this));
 
         mOptions = new FirebaseRecyclerOptions.Builder<Category>().setQuery(FirebaseDatabase.getInstance().getReference().child("category"), Category.class).build();
-        menuViewHolder = new MenuViewHolder(mOptions);
+        menuViewHolder = new MenuViewHolder(mOptions, this::onClick);
         recyclerMenu.setAdapter(menuViewHolder);
 
         drawerLayout = findViewById(R.id.drawerLayout);

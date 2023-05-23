@@ -16,7 +16,9 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.squareup.picasso.Picasso;
 
-public class MenuViewHolder extends FirebaseRecyclerAdapter<Category, MenuViewHolder.mHolder> {
+public class MenuViewHolder extends FirebaseRecyclerAdapter<Category, MenuViewHolder.mHolder> implements ItemClickListener {
+
+    private final ItemClickListener itemClickListener;
 
     /**
      * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
@@ -24,8 +26,9 @@ public class MenuViewHolder extends FirebaseRecyclerAdapter<Category, MenuViewHo
      *
      * @param mOptions
      */
-    public MenuViewHolder(@NonNull FirebaseRecyclerOptions<Category> mOptions) {
+    public MenuViewHolder(@NonNull FirebaseRecyclerOptions<Category> mOptions, ItemClickListener itemClickListener) {
         super(mOptions);
+        this.itemClickListener = itemClickListener;
     }
 
     @Override
@@ -33,13 +36,6 @@ public class MenuViewHolder extends FirebaseRecyclerAdapter<Category, MenuViewHo
         holder.txtMenuName.setText(model.getName());
         Picasso.get().load(model.getImage())
                 .into(holder.imgView);
-        Category clickItem = model;
-        mHolder.setItemClickListener(new ItemClickListener() {
-            @Override
-            public void onClick(View view, int position, boolean isLongClick) {
-
-            }
-        });
     }
 
     @NonNull
@@ -49,15 +45,16 @@ public class MenuViewHolder extends FirebaseRecyclerAdapter<Category, MenuViewHo
         return new mHolder(view);
     }
 
-    class mHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    @Override
+    public void onClick(View view, int position, boolean isLongClick) {
+
+    }
+
+    class mHolder extends RecyclerView.ViewHolder {
 
         public TextView txtMenuName;
         public ImageView imgView;
-        private ItemClickListener itemClickListener;
 
-        public void setItemClickListener(ItemClickListener itemClickListener) {
-            this.itemClickListener = itemClickListener;
-        }
 
         public mHolder(@NonNull View itemView) {
             super(itemView);
@@ -65,12 +62,6 @@ public class MenuViewHolder extends FirebaseRecyclerAdapter<Category, MenuViewHo
             txtMenuName = itemView.findViewById(R.id.txtMenuName);
             imgView = itemView.findViewById(R.id.imgView);
 
-            itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View view) {
-            itemClickListener.onClick(view, getBindingAdapterPosition(), false);
         }
     }
 }
