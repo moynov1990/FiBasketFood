@@ -6,11 +6,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.media.Image;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.fibasketfood.Interface.ItemClickListener;
 import com.example.fibasketfood.Model.Category;
@@ -35,7 +35,7 @@ public class HomeActivity extends AppCompatActivity implements ItemClickListener
         recyclerMenu.setLayoutManager(new LinearLayoutManager(this));
 
         mOptions = new FirebaseRecyclerOptions.Builder<Category>().setQuery(FirebaseDatabase.getInstance().getReference().child("category"), Category.class).build();
-        menuViewHolder = new MenuViewHolder(mOptions, this::onClick);
+        menuViewHolder = new MenuViewHolder(mOptions, this);
         recyclerMenu.setAdapter(menuViewHolder);
 
         drawerLayout = findViewById(R.id.drawerLayout);
@@ -62,7 +62,9 @@ public class HomeActivity extends AppCompatActivity implements ItemClickListener
     }
 
     @Override
-    public void onClick(View view, int position, boolean isLongClick) {
-
+    public void onClick(int position) {
+        Intent Category = new Intent(HomeActivity.this, FoodActivity.class);
+        startActivity(Category);
+        finish();
     }
 }

@@ -16,7 +16,7 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.squareup.picasso.Picasso;
 
-public class MenuViewHolder extends FirebaseRecyclerAdapter<Category, MenuViewHolder.mHolder> implements ItemClickListener {
+public class MenuViewHolder extends FirebaseRecyclerAdapter<Category, MenuViewHolder.mHolder>  {
 
     private final ItemClickListener itemClickListener;
 
@@ -28,6 +28,7 @@ public class MenuViewHolder extends FirebaseRecyclerAdapter<Category, MenuViewHo
      */
     public MenuViewHolder(@NonNull FirebaseRecyclerOptions<Category> mOptions, ItemClickListener itemClickListener) {
         super(mOptions);
+
         this.itemClickListener = itemClickListener;
     }
 
@@ -45,19 +46,25 @@ public class MenuViewHolder extends FirebaseRecyclerAdapter<Category, MenuViewHo
         return new mHolder(view);
     }
 
-    @Override
-    public void onClick(View view, int position, boolean isLongClick) {
-
-    }
 
     class mHolder extends RecyclerView.ViewHolder {
 
         public TextView txtMenuName;
         public ImageView imgView;
 
-
         public mHolder(@NonNull View itemView) {
             super(itemView);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (itemClickListener !=null) {
+                        int pos = getAbsoluteAdapterPosition();
+
+                        itemClickListener.onClick(pos);
+                    }
+                }
+            });
 
             txtMenuName = itemView.findViewById(R.id.txtMenuName);
             imgView = itemView.findViewById(R.id.imgView);
