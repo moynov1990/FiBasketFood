@@ -63,8 +63,15 @@ public class HomeActivity extends AppCompatActivity implements ItemClickListener
 
     @Override
     public void onClick(int position) {
-        Intent Category = new Intent(HomeActivity.this, FoodActivity.class);
-        startActivity(Category);
+        Intent foodActivity = new Intent(HomeActivity.this, FoodActivity.class);
+        foodActivity.putExtra("CategoryID", menuViewHolder.getRef(position).getKey());
+        startActivity(foodActivity);
+        finish();
+    }
+
+    public void onBackPressed() {
+        Intent BackToMain = new Intent(HomeActivity.this, MainActivity.class);
+        startActivity(BackToMain);
         finish();
     }
 }
