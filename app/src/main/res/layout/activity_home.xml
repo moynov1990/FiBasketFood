@@ -18,15 +18,15 @@
             android:layout_height="wrap_content"
             android:background="#66393636"
             android:gravity="center_vertical"
-            android:padding="10sp"
+            android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/imgMenu"
-                android:layout_width="30sp"
-                android:layout_height="30sp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:gravity="center_vertical"
                 android:src="@drawable/ic_baseline_menu_24"
                 app:tint="@color/white" />
@@ -44,7 +44,7 @@
             <ImageView
                 android:id="@+id/imgOrder"
                 android:layout_width="30dp"
-                android:layout_height="30sp"
+                android:layout_height="30dp"
                 android:layout_marginEnd="10dp"
                 android:src="@drawable/ic_baseline_shopping_cart_24"
                 app:tint="@color/white" />
