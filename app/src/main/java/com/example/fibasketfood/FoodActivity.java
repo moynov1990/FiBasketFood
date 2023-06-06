@@ -1,21 +1,22 @@
 package com.example.fibasketfood;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
+import com.example.fibasketfood.Interface.ItemClickListener;
 import com.example.fibasketfood.Model.Food;
 import com.example.fibasketfood.ViewHolder.FoodViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class FoodActivity extends AppCompatActivity {
+public class FoodActivity extends AppCompatActivity implements ItemClickListener {
 
     RecyclerView recyclerFood;
     FirebaseRecyclerOptions<Food> fOptions;
@@ -23,6 +24,8 @@ public class FoodActivity extends AppCompatActivity {
     ImageView imgFoodView;
     String categoryID = "";
 //    DatabaseReference foodList;
+
+    ElegantNumberButton numBtnFood; //FoodViewHolder.java
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +39,9 @@ public class FoodActivity extends AppCompatActivity {
 
         categoryID = getIntent().getStringExtra("CategoryID");
         fOptions = new FirebaseRecyclerOptions.Builder<Food>().setQuery(FirebaseDatabase.getInstance().getReference().child("food").orderByChild("MenuID").equalTo(categoryID), Food.class).build();
-        foodViewHolder = new FoodViewHolder(fOptions);
+        foodViewHolder = new FoodViewHolder(fOptions, this);
         recyclerFood.setAdapter(foodViewHolder);
+
     }
 
     @Override
@@ -58,4 +62,8 @@ public class FoodActivity extends AppCompatActivity {
         finish();
     }
 
+    @Override
+    public void onClick(int position) {
+        Toast.makeText(FoodActivity.this, "added", Toast.LENGTH_LONG).show();
+    }
 }

@@ -9,7 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.fibasketfood.Model.Category;
+import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
+import com.example.fibasketfood.Interface.ItemClickListener;
 import com.example.fibasketfood.Model.Food;
 import com.example.fibasketfood.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -18,14 +19,18 @@ import com.squareup.picasso.Picasso;
 
 public class FoodViewHolder extends FirebaseRecyclerAdapter<Food, FoodViewHolder.fHolder> {
 
+    private final ItemClickListener itemClickListener;
+
     /**
      * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
      * {@link FirebaseRecyclerOptions} for configuration options.
      *
      * @param fOptions
      */
-    public FoodViewHolder(@NonNull FirebaseRecyclerOptions<Food> fOptions) {
+    public FoodViewHolder(@NonNull FirebaseRecyclerOptions<Food> fOptions, ItemClickListener itemClickListener) {
         super(fOptions);
+
+        this.itemClickListener = itemClickListener;
     }
 
     @Override
@@ -45,7 +50,9 @@ public class FoodViewHolder extends FirebaseRecyclerAdapter<Food, FoodViewHolder
     class fHolder extends RecyclerView.ViewHolder {
 
         public TextView txtFoodName;
-        public ImageView imgFoodView;
+        public ImageView imgFoodView, imgAddToBasket;
+        public ElegantNumberButton numBtnFood;
+        public String foodID = "";
 
 
         public fHolder(@NonNull View itemView) {
@@ -53,7 +60,17 @@ public class FoodViewHolder extends FirebaseRecyclerAdapter<Food, FoodViewHolder
 
             txtFoodName = itemView.findViewById(R.id.txtFoodName);
             imgFoodView = itemView.findViewById(R.id.imgFoodView);
+            numBtnFood = itemView.findViewById(R.id.numBtnFood);
+            imgAddToBasket = itemView.findViewById(R.id.imgAddToBasket);
 
+            imgAddToBasket.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int pos = getAbsoluteAdapterPosition();
+
+                    itemClickListener.onClick(pos);
+                }
+            });
         }
     }
 }

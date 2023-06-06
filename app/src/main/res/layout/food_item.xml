@@ -54,7 +54,7 @@
                 android:background="#66393636"
                 android:paddingStart="15dp"
                 android:paddingEnd="15dp"
-                android:src="@drawable/ic_baseline_shopping_cart_24"
+                android:src="@drawable/ic_baseline_add_shopping_cart_24"
                 app:tint="@color/white" />
 
         </LinearLayout>
