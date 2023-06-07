@@ -1,16 +1,15 @@
 package com.example.fibasketfood;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.fibasketfood.Interface.ItemClickListener;
 import com.example.fibasketfood.Model.Category;
@@ -24,7 +23,7 @@ public class HomeActivity extends AppCompatActivity implements ItemClickListener
     FirebaseRecyclerOptions<Category> mOptions;
     MenuViewHolder menuViewHolder;
     DrawerLayout drawerLayout;
-    ImageView imgMenu;
+    ImageView imgMenu, imgOrder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +39,21 @@ public class HomeActivity extends AppCompatActivity implements ItemClickListener
 
         drawerLayout = findViewById(R.id.drawerLayout);
         imgMenu = findViewById(R.id.imgMenu);
+        imgOrder = findViewById(R.id.imgOrder);
 
         imgMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
+
+        imgOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent cartActivity = new Intent(HomeActivity.this, CartActivity.class);
+                startActivity(cartActivity);
+                finish();
             }
         });
     }

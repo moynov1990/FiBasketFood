@@ -2,6 +2,8 @@ package com.example.fibasketfood;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -24,6 +26,8 @@ public class FoodActivity extends AppCompatActivity implements ItemClickListener
     ImageView imgFoodView;
     String categoryID = "";
 //    DatabaseReference foodList;
+    Button btnCart;
+
 
     ElegantNumberButton numBtnFood; //FoodViewHolder.java
 
@@ -31,6 +35,17 @@ public class FoodActivity extends AppCompatActivity implements ItemClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food);
+
+        btnCart = findViewById(R.id.btnCart);
+
+        btnCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent cartActivity = new Intent(FoodActivity.this, CartActivity.class);
+                startActivity(cartActivity);
+                finish();
+            }
+        });
 
         recyclerFood = findViewById(R.id.recyclerFood);
         recyclerFood.setLayoutManager(new LinearLayoutManager(this));
@@ -64,6 +79,9 @@ public class FoodActivity extends AppCompatActivity implements ItemClickListener
 
     @Override
     public void onClick(int position) {
+        Intent cartActivity = new Intent(FoodActivity.this, CartActivity.class);
+        cartActivity.putExtra("FoodID", foodViewHolder.getRef(position).getKey());
+
         Toast.makeText(FoodActivity.this, "added", Toast.LENGTH_LONG).show();
     }
 }
