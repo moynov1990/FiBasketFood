@@ -17,9 +17,12 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
 public class FoodViewHolder extends FirebaseRecyclerAdapter<Food, FoodViewHolder.fHolder> {
 
     private final ItemClickListener itemClickListener;
+
 
     /**
      * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
@@ -66,9 +69,9 @@ public class FoodViewHolder extends FirebaseRecyclerAdapter<Food, FoodViewHolder
             imgAddToBasket.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    int pos = getAbsoluteAdapterPosition();
+                    Food food = foodList.getAbsoluteAdapterPosition();
 
-                    itemClickListener.onClick(pos);
+                    itemClickListener.onAddToCartClick(food);
                 }
             });
         }
