@@ -2,6 +2,8 @@ package com.example.fibasketfood;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -16,9 +18,6 @@ import com.example.fibasketfood.ViewHolder.FoodViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class FoodActivity extends AppCompatActivity implements ItemClickListener {
 
     RecyclerView recyclerFood;
@@ -26,12 +25,8 @@ public class FoodActivity extends AppCompatActivity implements ItemClickListener
     FoodViewHolder foodViewHolder;
     ImageView imgFoodView;
     String categoryID = "";
-
 //    DatabaseReference foodList;
-//    Button btnCart;
-
-    private List<Food> itemsInCartList;
-    private int totalItemInCart = 0;
+    Button btnCart;
 
 
     ElegantNumberButton numBtnFood; //FoodViewHolder.java
@@ -41,16 +36,16 @@ public class FoodActivity extends AppCompatActivity implements ItemClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food);
 
-//        btnCart = findViewById(R.id.btnCart);                  //кнопка в кошик (корзина із замовленнями)
-//
-//        btnCart.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent cartActivity = new Intent(FoodActivity.this, CartActivity.class);
-//                startActivity(cartActivity);
-//                finish();
-//            }
-//        });
+        btnCart = findViewById(R.id.btnCart);
+
+        btnCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent cartActivity = new Intent(FoodActivity.this, CartActivity.class);
+                startActivity(cartActivity);
+                finish();
+            }
+        });
 
         recyclerFood = findViewById(R.id.recyclerFood);
         recyclerFood.setLayoutManager(new LinearLayoutManager(this));
@@ -84,14 +79,9 @@ public class FoodActivity extends AppCompatActivity implements ItemClickListener
 
     @Override
     public void onClick(int position) {
-        if(itemsInCartList == null) {
-            itemsInCartList = new ArrayList<>();
-        }
-        itemsInCartList.add(food);
-        totalItemInCart = 0;
+        Intent cartActivity = new Intent(FoodActivity.this, CartActivity.class);
+        cartActivity.putExtra("FoodID", foodViewHolder.getRef(position).getKey());
 
-        for(Food m : itemsInCartList) {
-            totalItemInCart = totalItemInCart + m.getTotalInCart();
-        }
+        Toast.makeText(FoodActivity.this, "added", Toast.LENGTH_LONG).show();
     }
 }

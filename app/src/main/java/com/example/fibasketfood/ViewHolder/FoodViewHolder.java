@@ -69,9 +69,7 @@ public class FoodViewHolder extends FirebaseRecyclerAdapter<Food, FoodViewHolder
             imgAddToBasket.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Food food = foodList.getAbsoluteAdapterPosition();
 
-                    itemClickListener.onAddToCartClick(food);
                 }
             });
         }
