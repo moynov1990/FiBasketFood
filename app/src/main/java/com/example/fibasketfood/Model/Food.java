@@ -11,7 +11,7 @@ public class Food implements Parcelable {
 
     private String Image, MenuID, Name;
     private int totalInCart;
-    private List<Food> foods;
+    private List<Food> foodsInCart;
 
     public int getTotalInCart() {
         return totalInCart;
@@ -32,12 +32,12 @@ public class Food implements Parcelable {
     }
 
 
-    public List<Food> getMenus() {
-        return foods;
+    public List<Food> getFoods() {
+        return foodsInCart;
     }
 
     public void setFoods(List<Food> foods) {
-        this.foods = foods;
+        this.foodsInCart = foods;
     }
 
 
