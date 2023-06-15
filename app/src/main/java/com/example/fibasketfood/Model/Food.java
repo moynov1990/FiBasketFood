@@ -29,6 +29,7 @@ public class Food implements Parcelable {
         MenuID = in.readString();
         Name = in.readString();
         totalInCart = in.readInt();
+        foodsInCart = in.createTypedArrayList(Food.CREATOR);
     }
 
 
@@ -86,5 +87,6 @@ public class Food implements Parcelable {
     public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeString(Name);
         dest.writeInt(totalInCart);
+        dest.writeTypedList(foodsInCart);
     }
 }

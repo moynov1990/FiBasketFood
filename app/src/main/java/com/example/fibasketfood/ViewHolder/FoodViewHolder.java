@@ -9,7 +9,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.example.fibasketfood.Interface.ItemClickListener;
 import com.example.fibasketfood.Model.Food;
 import com.example.fibasketfood.R;
@@ -22,6 +21,9 @@ import java.util.List;
 public class FoodViewHolder extends FirebaseRecyclerAdapter<Food, FoodViewHolder.fHolder> {
 
     private final ItemClickListener itemClickListener;
+
+    private List<Food> foodList;
+    private FoodListClickListener clickListener;
 
 
     /**
@@ -41,6 +43,50 @@ public class FoodViewHolder extends FirebaseRecyclerAdapter<Food, FoodViewHolder
         holder.txtFoodName.setText(model.getName());
         Picasso.get().load(model.getImage())
                 .into(holder.imgFoodView);
+
+
+        holder.imgAddToBasket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Food food  = foodList.get(position);
+                food.setTotalInCart(1);
+                clickListener.onAddToCartClick(food);
+                holder.tvCount.setText(food.getTotalInCart()+"");
+            }
+        });
+
+        holder.imageMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Food food  = foodList.get(position);
+                int total = food.getTotalInCart();
+                total--;
+                if(total > 0 ) {
+                    food.setTotalInCart(total);
+                    clickListener.onUpdateCartClick(food);
+                    holder.tvCount.setText(total +"");
+                } else {
+                    food.setTotalInCart(total);
+                    clickListener.onRemoveFromCartClick(food);
+                }
+            }
+        });
+
+        holder.imageAddOne.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Food food  = foodList.get(position);
+                int total = food.getTotalInCart();
+                total++;
+                if(total <= 10 ) {
+                    food.setTotalInCart(total);
+                    clickListener.onUpdateCartClick(food);
+                    holder.tvCount.setText(total +"");
+                }
+            }
+        });
+
+
     }
 
     @NonNull
@@ -52,9 +98,9 @@ public class FoodViewHolder extends FirebaseRecyclerAdapter<Food, FoodViewHolder
 
     class fHolder extends RecyclerView.ViewHolder {
 
-        public TextView txtFoodName;
-        public ImageView imgFoodView, imgAddToBasket;
-        public ElegantNumberButton numBtnFood;
+        public TextView txtFoodName, tvCount;
+        public ImageView imgFoodView, imgAddToBasket, imageMinus, imageAddOne;
+//        public ElegantNumberButton numBtnFood;  //кнопка із -1+
         public String foodID = "";
 
 
@@ -63,15 +109,30 @@ public class FoodViewHolder extends FirebaseRecyclerAdapter<Food, FoodViewHolder
 
             txtFoodName = itemView.findViewById(R.id.txtFoodName);
             imgFoodView = itemView.findViewById(R.id.imgFoodView);
-            numBtnFood = itemView.findViewById(R.id.numBtnFood);
+            tvCount = itemView.findViewById(R.id.tvCount);
             imgAddToBasket = itemView.findViewById(R.id.imgAddToBasket);
+            imageMinus = itemView.findViewById(R.id.imageMinus);
+            imageAddOne = itemView.findViewById(R.id.imageAddOne);
 
-            imgAddToBasket.setOnClickListener(new View.OnClickListener() {
+
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if (itemClickListener !=null) {
+                        int pos = getAbsoluteAdapterPosition();
 
+                        itemClickListener.onClick(pos);
+                    }
                 }
             });
+
+
+
         }
+    }
+    public interface FoodListClickListener {
+        public void onAddToCartClick(Food food);
+        public void onUpdateCartClick(Food food);
+        public void onRemoveFromCartClick(Food food);
     }
 }
