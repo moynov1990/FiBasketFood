@@ -32,10 +32,11 @@ public class FoodViewHolder extends FirebaseRecyclerAdapter<Food, FoodViewHolder
      *
      * @param fOptions
      */
-    public FoodViewHolder(@NonNull FirebaseRecyclerOptions<Food> fOptions, ItemClickListener itemClickListener) {
+    public FoodViewHolder(@NonNull FirebaseRecyclerOptions<Food> fOptions, ItemClickListener itemClickListener, FoodListClickListener clickListener) {
         super(fOptions);
 
         this.itemClickListener = itemClickListener;
+        this.clickListener = clickListener;
     }
 
     @Override
@@ -48,43 +49,43 @@ public class FoodViewHolder extends FirebaseRecyclerAdapter<Food, FoodViewHolder
         holder.imgAddToBasket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Food food  = foodList.get(position);
+                Food food  = (Food) getItem(position);
                 food.setTotalInCart(1);
                 clickListener.onAddToCartClick(food);
                 holder.tvCount.setText(food.getTotalInCart()+"");
             }
         });
 
-        holder.imageMinus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Food food  = foodList.get(position);
-                int total = food.getTotalInCart();
-                total--;
-                if(total > 0 ) {
-                    food.setTotalInCart(total);
-                    clickListener.onUpdateCartClick(food);
-                    holder.tvCount.setText(total +"");
-                } else {
-                    food.setTotalInCart(total);
-                    clickListener.onRemoveFromCartClick(food);
-                }
-            }
-        });
-
-        holder.imageAddOne.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Food food  = foodList.get(position);
-                int total = food.getTotalInCart();
-                total++;
-                if(total <= 10 ) {
-                    food.setTotalInCart(total);
-                    clickListener.onUpdateCartClick(food);
-                    holder.tvCount.setText(total +"");
-                }
-            }
-        });
+//        holder.imageMinus.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Food food  = foodList.get(position);
+//                int total = food.getTotalInCart();
+//                total--;
+//                if(total > 0 ) {
+//                    food.setTotalInCart(total);
+//                    clickListener.onUpdateCartClick(food);
+//                    holder.tvCount.setText(total +"");
+//                } else {
+//                    food.setTotalInCart(total);
+//                    clickListener.onRemoveFromCartClick(food);
+//                }
+//            }
+//        });
+//
+//        holder.imageAddOne.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Food food  = foodList.get(position);
+//                int total = food.getTotalInCart();
+//                total++;
+//                if(total <= 10 ) {
+//                    food.setTotalInCart(total);
+//                    clickListener.onUpdateCartClick(food);
+//                    holder.tvCount.setText(total +"");
+//                }
+//            }
+//        });
 
 
     }
@@ -113,18 +114,6 @@ public class FoodViewHolder extends FirebaseRecyclerAdapter<Food, FoodViewHolder
             imgAddToBasket = itemView.findViewById(R.id.imgAddToBasket);
             imageMinus = itemView.findViewById(R.id.imageMinus);
             imageAddOne = itemView.findViewById(R.id.imageAddOne);
-
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (itemClickListener !=null) {
-                        int pos = getAbsoluteAdapterPosition();
-
-                        itemClickListener.onClick(pos);
-                    }
-                }
-            });
 
 
 
