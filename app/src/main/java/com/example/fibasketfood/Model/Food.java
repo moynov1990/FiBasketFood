@@ -13,6 +13,14 @@ public class Food implements Parcelable {
     private int totalInCart;
     private List<Food> foodsInCart;
 
+    public List<Food> getFoodsInCart() {
+        return foodsInCart;
+    }
+
+    public void setFoodsInCart(List<Food> foodsInCart) {
+        this.foodsInCart = foodsInCart;
+    }
+
     public int getTotalInCart() {
         return totalInCart;
     }

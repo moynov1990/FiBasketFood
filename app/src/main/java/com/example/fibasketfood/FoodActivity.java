@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -41,13 +40,17 @@ public class FoodActivity extends AppCompatActivity implements ItemClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food);
+        Food foodModel = null;
 
         btnCart = findViewById(R.id.btnCart);
 
         btnCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                foodModel.setFoodsInCart(foodsInCart);
+
                 Intent cartActivity = new Intent(FoodActivity.this, CartActivity.class);
+                cartActivity.putExtra("FoodModel", foodModel);
                 startActivity(cartActivity);
                 finish();
             }

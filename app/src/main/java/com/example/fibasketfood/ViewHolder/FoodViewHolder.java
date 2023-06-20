@@ -115,8 +115,6 @@ public class FoodViewHolder extends FirebaseRecyclerAdapter<Food, FoodViewHolder
             imageMinus = itemView.findViewById(R.id.imageMinus);
             imageAddOne = itemView.findViewById(R.id.imageAddOne);
 
-
-
         }
     }
     public interface FoodListClickListener {
