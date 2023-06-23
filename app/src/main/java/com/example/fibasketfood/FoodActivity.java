@@ -40,17 +40,19 @@ public class FoodActivity extends AppCompatActivity implements ItemClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food);
-        Food foodModel = null;
+
+        Food orderModel = getIntent().getParcelableExtra("OrderModel");
 
         btnCart = findViewById(R.id.btnCart);
 
         btnCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                foodModel.setFoodsInCart(foodsInCart);
+
+                orderModel.setFoodsInCart(foodsInCart);
 
                 Intent cartActivity = new Intent(FoodActivity.this, CartActivity.class);
-                cartActivity.putExtra("FoodModel", foodModel);
+                cartActivity.putExtra("OrderModel", orderModel);
                 startActivity(cartActivity);
                 finish();
             }

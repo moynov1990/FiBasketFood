@@ -19,6 +19,7 @@ public class CartActivity extends AppCompatActivity implements ItemClickListener
     FirebaseRecyclerOptions<Cart> cOptions;
     CartViewHolder cartViewHolder;
 
+
     String foodID = "";
 
     protected void onCreate(Bundle savedInstanceState) {
