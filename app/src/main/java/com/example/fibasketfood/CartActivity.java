@@ -7,12 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.fibasketfood.Interface.ItemClickListener;
-import com.example.fibasketfood.Model.Cart;
 import com.example.fibasketfood.Model.Food;
 import com.example.fibasketfood.ViewHolder.CartViewHolder;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class CartActivity extends AppCompatActivity {
 
@@ -28,9 +24,14 @@ public class CartActivity extends AppCompatActivity {
 
         Food orderModel = getIntent().getParcelableExtra("OrderModel");
 
+        initRecyclerView(orderModel);
     }
 
-
+    private void initRecyclerView(Food orderModel) {
+        recyclerCart.setLayoutManager(new LinearLayoutManager(this));
+        cartViewHolder = new CartViewHolder(orderModel.getFoods());
+        recyclerCart.setAdapter(cartViewHolder);
+    }
 
     public void onBackPressed() {
         Intent BackToMenu = new Intent(CartActivity.this, FoodActivity.class);
