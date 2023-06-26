@@ -12,68 +12,51 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.example.fibasketfood.Interface.ItemClickListener;
 import com.example.fibasketfood.Model.Cart;
+import com.example.fibasketfood.Model.Food;
 import com.example.fibasketfood.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
 
-public class CartViewHolder extends FirebaseRecyclerAdapter<Cart, CartViewHolder.cHolder> {
 
+public class CartViewHolder extends RecyclerView.Adapter<CartViewHolder.cHolder> {
 
-    private final ItemClickListener itemClickListener;
+    private List<Food> foodList;
 
-    /**
-     * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
-     * {@link FirebaseRecyclerOptions} for configuration options.
-     *
-     * @param cOptions
-     */
-    public CartViewHolder(@NonNull FirebaseRecyclerOptions<Cart> cOptions, ItemClickListener itemClickListener) {
-        super(cOptions);
-
-        this.itemClickListener = itemClickListener;
+    public CartViewHolder(List<Food> foodList) {
+        this.foodList = foodList;
     }
 
-    @Override
-    protected void onBindViewHolder(CartViewHolder.cHolder holder, int position, @NonNull Cart model) {
-        holder.txtFoodName.setText(model.getName());
-        Picasso.get().load(model.getImage())
-                .into(holder.imgFoodView);
+    public void updateData(List<Food> foodList) {
+        this.foodList = foodList;
+        notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public CartViewHolder.cHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cart_item, parent, false);
-        return new cHolder(view);
+    public cHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view  = LayoutInflater.from(parent.getContext()).inflate(R.layout.cart_item, parent, false);
+        return  new cHolder(view);
     }
 
+    @Override
+    public void onBindViewHolder(@NonNull cHolder holder, int position) {
+        holder.txtFoodName.setText(foodList.get(position).getName());
+    }
 
-    class cHolder extends RecyclerView.ViewHolder {
+    @Override
+    public int getItemCount() {
+        return foodList.size();
+    }
 
-        public TextView txtFoodName;
-        public ImageView imgFoodView, imgAddToBasket;
-        public ElegantNumberButton numBtnFood;
-        public String foodID = "";
+    static class cHolder extends RecyclerView.ViewHolder {
+        TextView txtFoodName;
 
-
-        public cHolder(@NonNull View itemView) {
-            super(itemView);
-
-            txtFoodName = itemView.findViewById(R.id.txtFoodName);
-            imgFoodView = itemView.findViewById(R.id.imgFoodView);
-            numBtnFood = itemView.findViewById(R.id.numBtnFood);
-            imgAddToBasket = itemView.findViewById(R.id.imgAddToBasket);
-
-            imgAddToBasket.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int pos = getAbsoluteAdapterPosition();
-
-                    itemClickListener.onClick(pos);
-                }
-            });
+        public cHolder(View view) {
+            super(view);
+            txtFoodName = view.findViewById(R.id.txtFoodName);
         }
     }
 }
