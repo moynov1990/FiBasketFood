@@ -10,10 +10,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.fibasketfood.Model.Food;
 import com.example.fibasketfood.ViewHolder.CartViewHolder;
 
+import java.util.List;
+
 public class CartActivity extends AppCompatActivity {
 
     RecyclerView recyclerCart;
     CartViewHolder cartViewHolder;
+    private List<Food> menuList = null;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -1,6 +1,7 @@
 package com.example.fibasketfood;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,14 +12,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
+import com.example.fibasketfood.Database.OrderDBHelper;
 import com.example.fibasketfood.Interface.ItemClickListener;
 import com.example.fibasketfood.Model.Food;
 import com.example.fibasketfood.ViewHolder.FoodViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class FoodActivity extends AppCompatActivity implements ItemClickListener, FoodViewHolder.FoodListClickListener {
 
@@ -27,10 +26,11 @@ public class FoodActivity extends AppCompatActivity implements ItemClickListener
     FoodViewHolder foodViewHolder;
     ImageView imgFoodView;
     String categoryID = "";
-//    DatabaseReference foodList;
     Button btnCart;
 
-    private List<Food> foodsInCart;
+    private SQLiteDatabase mDatabase;
+
+
     private int totalItemInCart = 0;
 
 
@@ -41,7 +41,9 @@ public class FoodActivity extends AppCompatActivity implements ItemClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food);
 
-        Food orderModel = getIntent().getParcelableExtra("OrderModel");
+        OrderDBHelper dbHelper = new OrderDBHelper(this);
+        mDatabase = dbHelper.getWritableDatabase();
+
 
         btnCart = findViewById(R.id.btnCart);
 
@@ -49,10 +51,7 @@ public class FoodActivity extends AppCompatActivity implements ItemClickListener
             @Override
             public void onClick(View v) {
 
-                orderModel.setFoodsInCart(foodsInCart);
-
                 Intent cartActivity = new Intent(FoodActivity.this, CartActivity.class);
-                cartActivity.putExtra("OrderModel", orderModel);
                 startActivity(cartActivity);
                 finish();
             }
@@ -95,7 +94,12 @@ public class FoodActivity extends AppCompatActivity implements ItemClickListener
 
 
     @Override
-    public void onAddToCartClick(Food food) {
+    public void onAddToCartClick() {
+
+    }
+
+    @Override
+    public void onUpdateCartClick() {
         if(foodsInCart == null) {
             foodsInCart = new ArrayList<>();
         }
@@ -108,12 +112,7 @@ public class FoodActivity extends AppCompatActivity implements ItemClickListener
     }
 
     @Override
-    public void onUpdateCartClick(Food food) {
-
-    }
-
-    @Override
-    public void onRemoveFromCartClick(Food food) {
+    public void onRemoveFromCartClick() {
 
     }
 }

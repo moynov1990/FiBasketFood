@@ -1,5 +1,6 @@
 package com.example.fibasketfood.ViewHolder;
 
+import android.content.ContentValues;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.fibasketfood.Database.OrderContract;
 import com.example.fibasketfood.Interface.ItemClickListener;
 import com.example.fibasketfood.Model.Food;
 import com.example.fibasketfood.R;
@@ -16,14 +18,12 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
-
 public class FoodViewHolder extends FirebaseRecyclerAdapter<Food, FoodViewHolder.fHolder> {
 
     private final ItemClickListener itemClickListener;
 
-    private List<Food> foodList;
     private FoodListClickListener clickListener;
+
 
 
     /**
@@ -49,46 +49,30 @@ public class FoodViewHolder extends FirebaseRecyclerAdapter<Food, FoodViewHolder
         holder.imgAddToBasket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Food food  = (Food) getItem(position);
-                food.setTotalInCart(1);
-                clickListener.onAddToCartClick(food);
-                holder.tvCount.setText(food.getTotalInCart()+"");
+                clickListener.onUpdateCartClick();
+
+                String nameValue = getItem(position).getName().toString();
+
+                ContentValues values = new ContentValues();
+                values.put(OrderContract.OrderEntry.COLUMN_NAME, nameValue);
             }
         });
 
-//        holder.imageMinus.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Food food  = foodList.get(position);
-//                int total = food.getTotalInCart();
-//                total--;
-//                if(total > 0 ) {
-//                    food.setTotalInCart(total);
-//                    clickListener.onUpdateCartClick(food);
-//                    holder.tvCount.setText(total +"");
-//                } else {
-//                    food.setTotalInCart(total);
-//                    clickListener.onRemoveFromCartClick(food);
-//                }
-//            }
-//        });
-//
-//        holder.imageAddOne.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Food food  = foodList.get(position);
-//                int total = food.getTotalInCart();
-//                total++;
-//                if(total <= 10 ) {
-//                    food.setTotalInCart(total);
-//                    clickListener.onUpdateCartClick(food);
-//                    holder.tvCount.setText(total +"");
-//                }
-//            }
-//        });
+        holder.imageMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickListener.onRemoveFromCartClick();
+            }
+        });
 
-
+        holder.imageAddOne.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickListener.onAddToCartClick();
+            }
+        });
     }
+
 
     @NonNull
     @Override
@@ -98,12 +82,14 @@ public class FoodViewHolder extends FirebaseRecyclerAdapter<Food, FoodViewHolder
     }
 
     class fHolder extends RecyclerView.ViewHolder {
-
+        private int mAmount = 0;
         public TextView txtFoodName, tvCount;
         public ImageView imgFoodView, imgAddToBasket, imageMinus, imageAddOne;
-//        public ElegantNumberButton numBtnFood;  //кнопка із -1+
-        public String foodID = "";
 
+
+
+
+//        public ElegantNumberButton numBtnFood;  //кнопка із -1+
 
         public fHolder(@NonNull View itemView) {
             super(itemView);
@@ -117,9 +103,10 @@ public class FoodViewHolder extends FirebaseRecyclerAdapter<Food, FoodViewHolder
 
         }
     }
+
     public interface FoodListClickListener {
-        public void onAddToCartClick(Food food);
-        public void onUpdateCartClick(Food food);
-        public void onRemoveFromCartClick(Food food);
+        public void onAddToCartClick();
+        public void onUpdateCartClick();
+        public void onRemoveFromCartClick();
     }
 }
