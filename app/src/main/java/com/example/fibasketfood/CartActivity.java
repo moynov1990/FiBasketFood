@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fibasketfood.Model.Food;
@@ -22,18 +21,6 @@ public class CartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
-        recyclerCart = findViewById(R.id.recyclerCart);
-        recyclerCart.setLayoutManager(new LinearLayoutManager(this));
-
-        Food orderModel = getIntent().getParcelableExtra("OrderModel");
-
-        initRecyclerView(orderModel);
-    }
-
-    private void initRecyclerView(Food orderModel) {
-        recyclerCart.setLayoutManager(new LinearLayoutManager(this));
-        cartViewHolder = new CartViewHolder(orderModel.getFoods());
-        recyclerCart.setAdapter(cartViewHolder);
     }
 
     public void onBackPressed() {
@@ -41,6 +28,5 @@ public class CartActivity extends AppCompatActivity {
         startActivity(BackToMenu);
         finish();
     }
-
 
 }

@@ -10,7 +10,7 @@ import java.util.List;
 public class Food implements Parcelable {
 
     private String Image, MenuID, Name;
-    private int totalInCart;
+    private int TvCount;
     private List<Food> foodsInCart;
 
     public List<Food> getFoodsInCart() {
@@ -21,12 +21,12 @@ public class Food implements Parcelable {
         this.foodsInCart = foodsInCart;
     }
 
-    public int getTotalInCart() {
-        return totalInCart;
+    public int getTvCount() {
+        return TvCount;
     }
 
-    public void setTotalInCart(int totalInCart) {
-        this.totalInCart = totalInCart;
+    public void setTvCount(int tvCount) {
+        TvCount = tvCount;
     }
 
     public Food() {
@@ -36,7 +36,6 @@ public class Food implements Parcelable {
     protected Food(Parcel in) {
         MenuID = in.readString();
         Name = in.readString();
-        totalInCart = in.readInt();
         foodsInCart = in.createTypedArrayList(Food.CREATOR);
     }
 
@@ -86,6 +85,9 @@ public class Food implements Parcelable {
         Name = name;
     }
 
+
+
+
     @Override
     public int describeContents() {
         return 0;
@@ -94,7 +96,6 @@ public class Food implements Parcelable {
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeString(Name);
-        dest.writeInt(totalInCart);
         dest.writeTypedList(foodsInCart);
     }
 }

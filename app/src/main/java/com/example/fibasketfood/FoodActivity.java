@@ -19,7 +19,7 @@ import com.example.fibasketfood.ViewHolder.FoodViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class FoodActivity extends AppCompatActivity implements ItemClickListener, FoodViewHolder.FoodListClickListener {
+public class FoodActivity extends AppCompatActivity implements ItemClickListener {
 
     RecyclerView recyclerFood;
     FirebaseRecyclerOptions<Food> fOptions;
@@ -64,7 +64,7 @@ public class FoodActivity extends AppCompatActivity implements ItemClickListener
 
         categoryID = getIntent().getStringExtra("CategoryID");
         fOptions = new FirebaseRecyclerOptions.Builder<Food>().setQuery(FirebaseDatabase.getInstance().getReference().child("food").orderByChild("MenuID").equalTo(categoryID), Food.class).build();
-        foodViewHolder = new FoodViewHolder(fOptions, this, this);
+        foodViewHolder = new FoodViewHolder(fOptions, this);
         recyclerFood.setAdapter(foodViewHolder);
 
     }
@@ -93,26 +93,4 @@ public class FoodActivity extends AppCompatActivity implements ItemClickListener
     }
 
 
-    @Override
-    public void onAddToCartClick() {
-
-    }
-
-    @Override
-    public void onUpdateCartClick() {
-        if(foodsInCart == null) {
-            foodsInCart = new ArrayList<>();
-        }
-        foodsInCart.add(food);
-        totalItemInCart = 0;
-        for(Food f : foodsInCart) {
-            totalItemInCart = totalItemInCart + f.getTotalInCart();
-        }
-        btnCart.setText("Checkout (" +totalItemInCart +") items");
-    }
-
-    @Override
-    public void onRemoveFromCartClick() {
-
-    }
 }

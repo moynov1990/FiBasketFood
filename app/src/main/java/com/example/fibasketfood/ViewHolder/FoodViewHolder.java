@@ -18,12 +18,11 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
 public class FoodViewHolder extends FirebaseRecyclerAdapter<Food, FoodViewHolder.fHolder> {
 
     private final ItemClickListener itemClickListener;
-
-    private FoodListClickListener clickListener;
-
 
 
     /**
@@ -32,11 +31,11 @@ public class FoodViewHolder extends FirebaseRecyclerAdapter<Food, FoodViewHolder
      *
      * @param fOptions
      */
-    public FoodViewHolder(@NonNull FirebaseRecyclerOptions<Food> fOptions, ItemClickListener itemClickListener, FoodListClickListener clickListener) {
+    public FoodViewHolder(@NonNull FirebaseRecyclerOptions<Food> fOptions, ItemClickListener itemClickListener) {
         super(fOptions);
 
         this.itemClickListener = itemClickListener;
-        this.clickListener = clickListener;
+
     }
 
     @Override
@@ -49,7 +48,6 @@ public class FoodViewHolder extends FirebaseRecyclerAdapter<Food, FoodViewHolder
         holder.imgAddToBasket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickListener.onUpdateCartClick();
 
                 String nameValue = getItem(position).getName().toString();
 
@@ -61,14 +59,20 @@ public class FoodViewHolder extends FirebaseRecyclerAdapter<Food, FoodViewHolder
         holder.imageMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickListener.onRemoveFromCartClick();
+                int itemCount = getItem(position).getTvCount();
+                if (itemCount > 0) {
+                    itemCount--;
+                    getItem(position).setTvCount(itemCount);
+                }
             }
         });
 
         holder.imageAddOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickListener.onAddToCartClick();
+                int itemCount = getItem(position).getTvCount();
+                    itemCount++;
+                    getItem(position).setTvCount(itemCount);
             }
         });
     }
@@ -82,14 +86,11 @@ public class FoodViewHolder extends FirebaseRecyclerAdapter<Food, FoodViewHolder
     }
 
     class fHolder extends RecyclerView.ViewHolder {
-        private int mAmount = 0;
+
         public TextView txtFoodName, tvCount;
         public ImageView imgFoodView, imgAddToBasket, imageMinus, imageAddOne;
 
-
-
-
-//        public ElegantNumberButton numBtnFood;  //кнопка із -1+
+        //        public ElegantNumberButton numBtnFood;  //кнопка із -1+
 
         public fHolder(@NonNull View itemView) {
             super(itemView);
@@ -104,9 +105,4 @@ public class FoodViewHolder extends FirebaseRecyclerAdapter<Food, FoodViewHolder
         }
     }
 
-    public interface FoodListClickListener {
-        public void onAddToCartClick();
-        public void onUpdateCartClick();
-        public void onRemoveFromCartClick();
-    }
 }
