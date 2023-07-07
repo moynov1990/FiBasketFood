@@ -1,6 +1,8 @@
 package com.example.fibasketfood.ViewHolder;
 
 import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +20,12 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
-
 public class FoodViewHolder extends FirebaseRecyclerAdapter<Food, FoodViewHolder.fHolder> {
 
+    private int mAmount = 1;
     private final ItemClickListener itemClickListener;
-
+    private SQLiteDatabase mDatabase;
+    private CartAdapter mAdapter;
 
     /**
      * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
@@ -49,33 +51,48 @@ public class FoodViewHolder extends FirebaseRecyclerAdapter<Food, FoodViewHolder
             @Override
             public void onClick(View v) {
 
+                if (holder.txtFoodName.getText().toString().trim().length() == 0 || mAmount == 0) {
+                    return;
+                }
+
                 String nameValue = getItem(position).getName().toString();
 
                 ContentValues values = new ContentValues();
                 values.put(OrderContract.OrderEntry.COLUMN_NAME, nameValue);
+                values.put(OrderContract.OrderEntry.COLUMN_AMOUNT, mAmount);
+
+                mDatabase.insert(OrderContract.OrderEntry.TABLE_NAME, null, values);
+                mAdapter.swapCursor(getAllItems());
+
             }
         });
 
         holder.imageMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int itemCount = getItem(position).getTvCount();
-                if (itemCount > 0) {
-                    itemCount--;
-                    getItem(position).setTvCount(itemCount);
-                }
+
             }
         });
 
         holder.imageAddOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int itemCount = getItem(position).getTvCount();
-                    itemCount++;
-                    getItem(position).setTvCount(itemCount);
             }
         });
     }
+
+    private Cursor getAllItems() {
+        return mDatabase.query(
+                OrderContract.OrderEntry.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                OrderContract.OrderEntry.COLUMN_TIMESTAMP + " DESC"
+        );
+    }
+
 
 
     @NonNull
