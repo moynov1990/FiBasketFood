@@ -70,13 +70,20 @@ public class FoodViewHolder extends FirebaseRecyclerAdapter<Food, FoodViewHolder
         holder.imageMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                int itemCount = getItem(position).getTvCount();
+                if (itemCount > 0) {
+                    itemCount--;
+                    getItem(position).setTvCount(itemCount);
+                }
             }
         });
 
         holder.imageAddOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int itemCount = getItem(position).getTvCount();
+                    itemCount++;
+                    getItem(position).setTvCount(itemCount);
             }
         });
     }

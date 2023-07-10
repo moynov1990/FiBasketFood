@@ -1,9 +1,9 @@
 package com.example.fibasketfood.Model;
 
-public class Category {
+public class CategoryModel {
     private String Key, Name, Image;
 
-    public Category() {
+    public CategoryModel() {
     }
 
     public String getKey() {
@@ -11,7 +11,7 @@ public class Category {
     }
 
     public void setKey(String key) {
-        this.Key = key;
+        Key = key;
     }
 
     public String getName() {
