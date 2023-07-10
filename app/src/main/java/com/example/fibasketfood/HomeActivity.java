@@ -23,7 +23,7 @@ public class HomeActivity extends AppCompatActivity implements ItemClickListener
     FirebaseRecyclerOptions<Category> mOptions;
     MenuViewHolder menuViewHolder;
     DrawerLayout drawerLayout;
-    ImageView imgMenu, imgOrder;
+    ImageView imgMenu, btnCart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +39,7 @@ public class HomeActivity extends AppCompatActivity implements ItemClickListener
 
         drawerLayout = findViewById(R.id.drawerLayout);
         imgMenu = findViewById(R.id.imgMenu);
-        imgOrder = findViewById(R.id.imgOrder);
+        btnCart = findViewById(R.id.btnCart);
 
         imgMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,7 +48,7 @@ public class HomeActivity extends AppCompatActivity implements ItemClickListener
             }
         });
 
-        imgOrder.setOnClickListener(new View.OnClickListener() {
+        btnCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent cartActivity = new Intent(HomeActivity.this, CartActivity.class);

@@ -26,7 +26,7 @@ public class FoodActivity extends AppCompatActivity implements ItemClickListener
     FoodViewHolder foodViewHolder;
     ImageView imgFoodView;
     String categoryID = "";
-    Button btnCart;
+    Button btnCart1;
 
     private SQLiteDatabase mDatabase;
 
@@ -45,9 +45,9 @@ public class FoodActivity extends AppCompatActivity implements ItemClickListener
         mDatabase = dbHelper.getWritableDatabase();
 
 
-        btnCart = findViewById(R.id.btnCart);
+        btnCart1 = findViewById(R.id.btnCart1);
 
-        btnCart.setOnClickListener(new View.OnClickListener() {
+        btnCart1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
