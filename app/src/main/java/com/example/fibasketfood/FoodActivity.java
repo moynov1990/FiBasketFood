@@ -3,82 +3,103 @@ package com.example.fibasketfood;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
+import com.example.fibasketfood.Adapter.MyFoodAdapter;
 import com.example.fibasketfood.Database.OrderDBHelper;
-import com.example.fibasketfood.Interface.ItemClickListener;
-import com.example.fibasketfood.Model.Food;
-import com.example.fibasketfood.ViewHolder.FoodViewHolder;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.example.fibasketfood.Interface.FoodLoadListener;
+import com.example.fibasketfood.Model.FoodModel;
+import com.example.fibasketfood.utils.SpaceItemDecoration;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.nex3z.notificationbadge.NotificationBadge;
 
-public class FoodActivity extends AppCompatActivity implements ItemClickListener {
+import java.util.ArrayList;
+import java.util.List;
+
+public class FoodActivity extends AppCompatActivity implements FoodLoadListener {
 
     RecyclerView recyclerFood;
-    FirebaseRecyclerOptions<Food> fOptions;
-    FoodViewHolder foodViewHolder;
+    DrawerLayout drawerLayout;
     ImageView imgFoodView;
+    FrameLayout btnCart;
+    NotificationBadge badge;
     String categoryID = "";
-    Button btnCart1;
+    FoodLoadListener foodLoadListener;
 
     private SQLiteDatabase mDatabase;
-
-
-    private int totalItemInCart = 0;
-
-
-    ElegantNumberButton numBtnFood; //FoodViewHolder.java
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food);
 
+        recyclerFood = findViewById(R.id.recyclerFood);
+
         OrderDBHelper dbHelper = new OrderDBHelper(this);
         mDatabase = dbHelper.getWritableDatabase();
 
-
-        btnCart1 = findViewById(R.id.btnCart1);
-
-        btnCart1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent cartActivity = new Intent(FoodActivity.this, CartActivity.class);
-                startActivity(cartActivity);
-                finish();
-            }
-        });
-
-        recyclerFood = findViewById(R.id.recyclerFood);
-        recyclerFood.setLayoutManager(new LinearLayoutManager(this));
-
-//        foodList = FirebaseDatabase.getInstance().getReference("food");
-
         categoryID = getIntent().getStringExtra("CategoryID");
-        fOptions = new FirebaseRecyclerOptions.Builder<Food>().setQuery(FirebaseDatabase.getInstance().getReference().child("food").orderByChild("MenuID").equalTo(categoryID), Food.class).build();
-        foodViewHolder = new FoodViewHolder(fOptions, this);
-        recyclerFood.setAdapter(foodViewHolder);
+
+        init();
+        loadFoodFromFirebase();
 
     }
 
+    private void loadFoodFromFirebase() {
+        List<FoodModel> foodModels = new ArrayList<>();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("food");
+        ref.orderByChild("CategoryID").equalTo(categoryID)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists()) {
+                            for(DataSnapshot foodSnapshot:snapshot.getChildren()) {
+                                FoodModel foodModel = foodSnapshot.getValue(FoodModel.class);
+                                foodModel.setKey(foodSnapshot.getKey());
+                                foodModels.add(foodModel);
+                            }
+                            foodLoadListener.onFoodLoadSuccess(foodModels);
+                        }
+                        else foodLoadListener.onFoodLoadFailed("can't find category");
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        foodLoadListener.onFoodLoadFailed(error.getMessage());
+                    }
+        });
+    }
+
+    private void init() {
+        foodLoadListener = this;
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 1);
+        recyclerFood.setLayoutManager(gridLayoutManager);
+        recyclerFood.addItemDecoration(new SpaceItemDecoration());
+    }
+
+
     @Override
-    protected void onStart() {
-        super.onStart();
-        foodViewHolder.startListening();
+    public void onFoodLoadSuccess(List<FoodModel> foodModelList) {
+        MyFoodAdapter adapter = new MyFoodAdapter(this, foodModelList);
+        recyclerFood.setAdapter(adapter);
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        foodViewHolder.stopListening();
+    public void onFoodLoadFailed(String message) {
+        Snackbar.make(drawerLayout, message, Snackbar.LENGTH_LONG).show();
     }
 
     public void onBackPressed() {
@@ -86,11 +107,4 @@ public class FoodActivity extends AppCompatActivity implements ItemClickListener
         startActivity(BackToMenu);
         finish();
     }
-
-    @Override
-    public void onClick(int position) {
-
-    }
-
-
 }

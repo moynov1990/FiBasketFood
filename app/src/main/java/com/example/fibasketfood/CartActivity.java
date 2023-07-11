@@ -10,11 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fibasketfood.Database.OrderContract;
-import com.example.fibasketfood.Database.OrderDBHelper;
-import com.example.fibasketfood.Model.Food;
-import com.example.fibasketfood.ViewHolder.CartAdapter;
-
-import java.util.List;
 
 public class CartActivity extends AppCompatActivity {
 

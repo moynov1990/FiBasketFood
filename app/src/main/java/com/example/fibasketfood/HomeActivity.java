@@ -17,10 +17,10 @@ import com.example.fibasketfood.Interface.CategoryLoadListener;
 import com.example.fibasketfood.Model.CartModel;
 import com.example.fibasketfood.Model.CategoryModel;
 import com.example.fibasketfood.utils.SpaceItemDecoration;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.nex3z.notificationbadge.NotificationBadge;
@@ -68,27 +68,27 @@ public class HomeActivity extends AppCompatActivity implements CategoryLoadListe
 
     private void loadCategoryFromFirebase() {
         List<CategoryModel> categoryModels = new ArrayList<>();
-        FirebaseDatabase.getInstance()
-                .getReference("category")
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(snapshot.exists()) {
-                            for(DataSnapshot categorySnapshot:snapshot.getChildren()) {
-                                CategoryModel categoryModel = categorySnapshot.getValue(CategoryModel.class);
-                                categoryModel.setKey(categorySnapshot.getKey());
-                                categoryModels.add(categoryModel);
-                            }
-                            categoryLoadListener.onCategoryLoadSuccess(categoryModels);
-                        }
-                        else categoryLoadListener.onCategoryLoadFailed("can't find category");
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("food");
+        ref.orderByChild("CategoryID").equalTo(categoryID)
+                .addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()) {
+                    for(DataSnapshot categorySnapshot:snapshot.getChildren()) {
+                        CategoryModel categoryModel = categorySnapshot.getValue(CategoryModel.class);
+                        categoryModel.setKey(categorySnapshot.getKey());
+                        categoryModels.add(categoryModel);
                     }
+                    categoryLoadListener.onCategoryLoadSuccess(categoryModels);
+                }
+                else categoryLoadListener.onCategoryLoadFailed("can't find category");
+            }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        categoryLoadListener.onCategoryLoadFailed(error.getMessage());
-                    }
-                });
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                categoryLoadListener.onCategoryLoadFailed(error.getMessage());
+            }
+        });
     }
 
     private void init() {
@@ -128,3 +128,28 @@ public class HomeActivity extends AppCompatActivity implements CategoryLoadListe
     }
 
 }
+
+
+//    private void loadCategoryFromFirebase() {
+//        List<CategoryModel> categoryModels = new ArrayList<>();
+//        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("category");
+//        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if(snapshot.exists()) {
+//                    for(DataSnapshot categorySnapshot:snapshot.getChildren()) {
+//                        CategoryModel categoryModel = categorySnapshot.getValue(CategoryModel.class);
+//                        categoryModel.setKey(categorySnapshot.getKey());
+//                        categoryModels.add(categoryModel);
+//                    }
+//                    categoryLoadListener.onCategoryLoadSuccess(categoryModels);
+//                }
+//                else categoryLoadListener.onCategoryLoadFailed("can't find category");
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//                categoryLoadListener.onCategoryLoadFailed(error.getMessage());
+//            }
+//        });
+//    }
