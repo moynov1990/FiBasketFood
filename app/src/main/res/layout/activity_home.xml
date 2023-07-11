@@ -29,7 +29,8 @@
                 android:layout_height="30dp"
                 android:gravity="center_vertical"
                 android:src="@drawable/ic_baseline_menu_24"
-                app:tint="@color/white" />
+                app:tint="@color/white"
+                android:contentDescription="TODO" />
 
             <TextView
                 android:id="@+id/txtMenu"
@@ -54,7 +55,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:src="@drawable/ic_baseline_shopping_cart_24"
-                    app:tint="@color/white" />
+                    app:tint="@color/white"
+                    android:contentDescription="TODO" />
 
                 <com.nex3z.notificationbadge.NotificationBadge
                     android:id="@+id/badge"
@@ -65,7 +67,7 @@
                     android:layout_alignTop="@+id/imgCart"
                     android:layout_marginLeft="25dp"
                     app:nbMaxTextLength="2" />
-                </FrameLayout>
+            </FrameLayout>
 
         </LinearLayout>
 

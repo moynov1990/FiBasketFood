@@ -14,11 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.fibasketfood.Adapter.MyCategoryAdapter;
 import com.example.fibasketfood.Interface.CartLoadListener;
 import com.example.fibasketfood.Interface.CategoryLoadListener;
-import com.example.fibasketfood.Interface.ItemClickListener;
 import com.example.fibasketfood.Model.CartModel;
-import com.example.fibasketfood.Model.Category;
 import com.example.fibasketfood.Model.CategoryModel;
-import com.example.fibasketfood.ViewHolder.MenuViewHolder;
 import com.example.fibasketfood.utils.SpaceItemDecoration;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.snackbar.Snackbar;
@@ -31,11 +28,9 @@ import com.nex3z.notificationbadge.NotificationBadge;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeActivity extends AppCompatActivity implements ItemClickListener, CategoryLoadListener, CartLoadListener {
+public class HomeActivity extends AppCompatActivity implements CategoryLoadListener, CartLoadListener {
 
     RecyclerView recyclerMenu;
-    FirebaseRecyclerOptions<Category> mOptions;
-    MenuViewHolder menuViewHolder;
     DrawerLayout drawerLayout;
     ImageView imgMenu;
     FrameLayout btnCart;
@@ -49,6 +44,7 @@ public class HomeActivity extends AppCompatActivity implements ItemClickListener
         setContentView(R.layout.activity_home);
 
         drawerLayout = findViewById(R.id.drawerLayout);
+        recyclerMenu = findViewById(R.id.recyclerMenu);
 
         init();
         loadCategoryFromFirebase();
@@ -123,15 +119,6 @@ public class HomeActivity extends AppCompatActivity implements ItemClickListener
     @Override
     public void onCartLoadFailed(String message) {
 
-    }
-
-
-    @Override
-    public void onClick(int position) {
-        Intent foodActivity = new Intent(HomeActivity.this, FoodActivity.class);
-        foodActivity.putExtra("CategoryID", menuViewHolder.getRef(position).getKey());
-        startActivity(foodActivity);
-        finish();
     }
 
     public void onBackPressed() {
