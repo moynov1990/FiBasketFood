@@ -35,7 +35,7 @@ public class FoodActivity extends AppCompatActivity implements FoodLoadListener 
     ImageView imgFoodView;
     FrameLayout btnCart;
     NotificationBadge badge;
-    String categoryID = "";
+    String categoryId = "";
     FoodLoadListener foodLoadListener;
 
     private SQLiteDatabase mDatabase;
@@ -50,7 +50,7 @@ public class FoodActivity extends AppCompatActivity implements FoodLoadListener 
         OrderDBHelper dbHelper = new OrderDBHelper(this);
         mDatabase = dbHelper.getWritableDatabase();
 
-        categoryID = getIntent().getStringExtra("CategoryID");
+        categoryId = getIntent().getStringExtra("categoryId");
 
         init();
         loadFoodFromFirebase();
@@ -60,7 +60,7 @@ public class FoodActivity extends AppCompatActivity implements FoodLoadListener 
     private void loadFoodFromFirebase() {
         List<FoodModel> foodModels = new ArrayList<>();
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("food");
-        ref.orderByChild("CategoryID").equalTo(categoryID)
+        ref.orderByChild("CategoryID").equalTo(categoryId)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {

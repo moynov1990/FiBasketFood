@@ -29,12 +29,12 @@ public class MyFoodAdapter extends RecyclerView.Adapter<MyFoodAdapter.MyFoodView
     @NonNull
     @Override
     public MyFoodAdapter.MyFoodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MyFoodAdapter.MyFoodViewHolder(LayoutInflater.from(context).inflate(R.layout.menu_item, parent, false));
+        return new MyFoodAdapter.MyFoodViewHolder(LayoutInflater.from(context).inflate(R.layout.food_item, parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyFoodAdapter.MyFoodViewHolder holder, int position) {
-        Glide.with(context).load(foodModelList.get(position).getImage()).into(holder.imgView);
+        Glide.with(context).load(foodModelList.get(position).getImage()).into(holder.imgFoodView);
         holder.txtFoodName.setText(new StringBuilder().append(foodModelList.get(position).getName()));
     }
 
@@ -44,13 +44,13 @@ public class MyFoodAdapter extends RecyclerView.Adapter<MyFoodAdapter.MyFoodView
     }
 
     public class MyFoodViewHolder extends RecyclerView.ViewHolder {
-        ImageView imgView;
+        ImageView imgFoodView;
         TextView txtFoodName;
 
         public MyFoodViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            imgView = itemView.findViewById(R.id.imgView);
+            imgFoodView = itemView.findViewById(R.id.imgFoodView);
             txtFoodName = itemView.findViewById(R.id.txtFoodName);
         }
     }
