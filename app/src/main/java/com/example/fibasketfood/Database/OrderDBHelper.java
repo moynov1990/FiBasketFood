@@ -19,7 +19,7 @@ public class OrderDBHelper extends SQLiteOpenHelper {
                 OrderContract.OrderEntry.TABLE_NAME + " (" +
                 OrderContract.OrderEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 OrderContract.OrderEntry.COLUMN_NAME + " TEXT NOT NULL, " +
-                OrderContract.OrderEntry.COLUMN_AMOUNT + " INTEGER NOT NULL, " +
+                OrderContract.OrderEntry.COLUMN_QUANTITY + " INTEGER NOT NULL, " +
                 OrderContract.OrderEntry.COLUMN_TIMESTAMP + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP" +
                 ");";
 
