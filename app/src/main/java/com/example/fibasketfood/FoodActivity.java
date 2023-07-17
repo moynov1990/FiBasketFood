@@ -40,6 +40,8 @@ public class FoodActivity extends AppCompatActivity implements FoodLoadListener 
 
     private SQLiteDatabase mDatabase;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +50,7 @@ public class FoodActivity extends AppCompatActivity implements FoodLoadListener 
         recyclerFood = findViewById(R.id.recyclerFood);
 
         OrderDBHelper dbHelper = new OrderDBHelper(this);
-        mDatabase = dbHelper.getWritableDatabase();
+//        mDatabase = dbHelper.getWritableDatabase();
 
         categoryId = getIntent().getStringExtra("categoryId");
 
@@ -107,4 +109,5 @@ public class FoodActivity extends AppCompatActivity implements FoodLoadListener 
         startActivity(BackToMenu);
         finish();
     }
+
 }
