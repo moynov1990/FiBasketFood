@@ -25,7 +25,7 @@ public class OrderDBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public long insertRecord(String name, int quantity, String item, String addedTime, String updatedTime) {
+    public long insertRecord(String name, String quantity, String item, String addedTime, String updatedTime) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 

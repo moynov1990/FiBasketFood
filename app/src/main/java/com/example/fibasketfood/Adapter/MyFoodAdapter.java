@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,7 +23,8 @@ public class MyFoodAdapter extends RecyclerView.Adapter<MyFoodAdapter.MyFoodView
 
     private Context context;
     List<FoodModel> foodModelList;
-    int quantity = 1;
+    String quantity = "1";
+    String item = "шт";
     OrderDBHelper dbHelper;
 
     public MyFoodAdapter(Context context, List<FoodModel> foodModelList) {
@@ -45,26 +47,25 @@ public class MyFoodAdapter extends RecyclerView.Adapter<MyFoodAdapter.MyFoodView
 
         FoodModel model = foodModelList.get(position);
         String foodName = model.getName();
-        String foodNameTV = foodName.toString().trim();
-
-
 
         holder.setListener(new ItemClickListener() {
             @Override
             public void onItemClick(View view, int adapterPosition) {
+                String foodNameTV = ""+foodName.toString().trim();
+                String quantityTV = ""+quantity.toString().trim();
+                String itemTV = ""+item.toString().trim();;
+                String timestamp = ""+String.valueOf(System.currentTimeMillis());
+                long id = dbHelper.insertRecord(
+                        ""+foodNameTV,
+                        ""+quantityTV,
+                        ""+itemTV,
+                        ""+timestamp,
+                        ""+timestamp
+                );
 
-                addItem();
+                Toast.makeText(context, "Added against ID: "+id, Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    private void addItem() {
-        ContentValues cv = new ContentValues();
-        cv.put(OrderContract.OrderEntry.COLUMN_NAME, foodNameTV);
-        cv.put(OrderContract.OrderEntry.COLUMN_QUANTITY, quantity);
-
-        mDatabase.insert(OrderContract.OrderEntry.TABLE_NAME, null, cv);
-//        mAdapter.swapCursor(getAllItems());
     }
 
     @Override

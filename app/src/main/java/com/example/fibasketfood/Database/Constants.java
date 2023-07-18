@@ -15,7 +15,7 @@ public class Constants {
     public static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " ("
             + C_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + C_NAME + " TEXT,"
-            + C_QUANTITY + " INTEGER,"
+            + C_QUANTITY + " TEXT,"
             + C_ITEM + " TEXT,"
             + C_ADDED_TIMESTAMP + " TEXT,"
             + C_UPDATED_TIMESTAMP  + " TEXT,"
