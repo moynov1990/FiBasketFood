@@ -53,20 +53,19 @@ public class MyFoodAdapter extends RecyclerView.Adapter<MyFoodAdapter.MyFoodView
             public void onItemClick(View view, int adapterPosition) {
                 String foodNameTV = ""+foodName.toString().trim();
                 String quantityTV = ""+quantity.toString().trim();
-                String itemTV = ""+item.toString().trim();;
-                String timestamp = ""+String.valueOf(System.currentTimeMillis());
+                String itemTV = ""+item.toString().trim();
+
                 long id = dbHelper.insertRecord(
                         ""+foodNameTV,
                         ""+quantityTV,
-                        ""+itemTV,
-                        ""+timestamp,
-                        ""+timestamp
+                        ""+itemTV
                 );
 
                 Toast.makeText(context, "Added against ID: "+id, Toast.LENGTH_SHORT).show();
             }
         });
     }
+
 
     @Override
     public int getItemCount() {
