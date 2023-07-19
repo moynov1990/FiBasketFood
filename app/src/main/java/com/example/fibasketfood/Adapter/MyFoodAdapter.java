@@ -23,8 +23,8 @@ public class MyFoodAdapter extends RecyclerView.Adapter<MyFoodAdapter.MyFoodView
 
     private Context context;
     List<FoodModel> foodModelList;
-    String quantity = "1";
-    String item = "шт";
+    String quantity = "";
+    String item = "";
     OrderDBHelper dbHelper;
 
     public MyFoodAdapter(Context context, List<FoodModel> foodModelList) {
@@ -54,7 +54,8 @@ public class MyFoodAdapter extends RecyclerView.Adapter<MyFoodAdapter.MyFoodView
                 String foodNameTV = ""+foodName.toString().trim();
                 String quantityTV = ""+quantity.toString().trim();
                 String itemTV = ""+item.toString().trim();;
-                String timestamp = ""+String.valueOf(System.currentTimeMillis());
+
+                String timestamp = ""+System.currentTimeMillis();
                 long id = dbHelper.insertRecord(
                         ""+foodNameTV,
                         ""+quantityTV,
