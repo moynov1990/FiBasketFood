@@ -55,14 +55,12 @@ public class OrderDBHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery("Select * from MY_RECORDS_TABLE where name = ?", new String[] {name});
         if(cursor.getCount()>0) {
             long id = db.update(Constants.TABLE_NAME, values, "name=?", new String[]{name});
-            if (id == -1) {
-                return -1;
-            } else {
-                return 1;
-            }
-        } else {
-            return -1;
+            cursor.close();
+            db.close();
+
+            return id;
         }
+        return 0;
     }
 }
 

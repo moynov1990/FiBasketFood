@@ -55,6 +55,7 @@ public class MyFoodAdapter extends RecyclerView.Adapter<MyFoodAdapter.MyFoodView
                 String quantityTV = ""+quantity.toString().trim();
                 String itemTV = ""+item.toString().trim();
 
+
                 long id = dbHelper.insertRecord(
                         ""+foodNameTV,
                         ""+quantityTV,
