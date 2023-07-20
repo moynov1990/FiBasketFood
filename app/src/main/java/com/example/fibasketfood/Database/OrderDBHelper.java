@@ -2,6 +2,7 @@ package com.example.fibasketfood.Database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -42,4 +43,26 @@ public class OrderDBHelper extends SQLiteOpenHelper {
         return id;
     }
 
+    public long updateRecord(String name, String quantity, String item) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(Constants.C_QUANTITY, quantity);
+        values.put(Constants.C_ITEM, item);
+
+        Cursor cursor = db.rawQuery("Select * from MY_RECORDS_TABLE where name = ?", new String[] {name});
+        if(cursor.getCount()>0) {
+            long id = db.update(Constants.TABLE_NAME, values, "name=?", new String[]{name});
+            if (id == -1) {
+                return -1;
+            } else {
+                return 1;
+            }
+        } else {
+            return -1;
+        }
+    }
 }
+
