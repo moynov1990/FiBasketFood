@@ -1,18 +1,9 @@
 package com.example.fibasketfood.Model;
 
 public class CartModel {
-    private String Key, Name, Image, FoodID;
-    private int Quantity;
+    private String Name, Quantity, Item;
 
     public CartModel() {
-    }
-
-    public String getKey() {
-        return Key;
-    }
-
-    public void setKey(String key) {
-        Key = key;
     }
 
     public String getName() {
@@ -23,27 +14,19 @@ public class CartModel {
         Name = name;
     }
 
-    public String getImage() {
-        return Image;
-    }
-
-    public void setImage(String image) {
-        Image = image;
-    }
-
-    public String getFoodID() {
-        return FoodID;
-    }
-
-    public void setFoodID(String foodID) {
-        FoodID = foodID;
-    }
-
-    public int getQuantity() {
+    public String getQuantity() {
         return Quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(String quantity) {
         Quantity = quantity;
+    }
+
+    public String getItem() {
+        return Item;
+    }
+
+    public void setItem(String item) {
+        Item = item;
     }
 }
