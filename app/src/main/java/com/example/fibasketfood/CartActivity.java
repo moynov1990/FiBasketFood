@@ -1,6 +1,5 @@
 package com.example.fibasketfood;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,7 +11,6 @@ import com.example.fibasketfood.Database.OrderDBHelper;
 
 public class CartActivity extends AppCompatActivity {
 
-    private SQLiteDatabase mDatabase;
     RecyclerView recyclerCart;
 
     private OrderDBHelper dbHelper;
@@ -35,4 +33,5 @@ public class CartActivity extends AppCompatActivity {
 
         recyclerCart.setAdapter(cartAdapter);
     }
+
 }

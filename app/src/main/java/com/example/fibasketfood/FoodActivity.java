@@ -1,9 +1,9 @@
 package com.example.fibasketfood;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.widget.FrameLayout;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fibasketfood.Adapter.MyFoodAdapter;
-import com.example.fibasketfood.Database.OrderDBHelper;
 import com.example.fibasketfood.Interface.FoodLoadListener;
 import com.example.fibasketfood.Model.FoodModel;
 import com.example.fibasketfood.utils.SpaceItemDecoration;
@@ -33,14 +32,10 @@ public class FoodActivity extends AppCompatActivity implements FoodLoadListener 
     RecyclerView recyclerFood;
     DrawerLayout drawerLayout;
     ImageView imgFoodView;
-    FrameLayout btnCart;
+    Button btnCart1;
     NotificationBadge badge;
     String categoryId = "";
     FoodLoadListener foodLoadListener;
-
-    private SQLiteDatabase mDatabase;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +44,16 @@ public class FoodActivity extends AppCompatActivity implements FoodLoadListener 
 
         recyclerFood = findViewById(R.id.recyclerFood);
 
-        OrderDBHelper dbHelper = new OrderDBHelper(this);
-//        mDatabase = dbHelper.getWritableDatabase();
+        btnCart1 = findViewById(R.id.btnCart1);
+
+        btnCart1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent CartActivity = new Intent(FoodActivity.this, CartActivity.class);
+                startActivity(CartActivity);
+                finish();
+            }
+        });
 
         categoryId = getIntent().getStringExtra("categoryId");
 
