@@ -8,6 +8,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import com.example.fibasketfood.Model.CartModel;
+
+import java.util.ArrayList;
+
 public class OrderDBHelper extends SQLiteOpenHelper {
 
     public OrderDBHelper(@Nullable Context context) {
@@ -69,5 +73,29 @@ public class OrderDBHelper extends SQLiteOpenHelper {
         db.close();
         return 0;
     }
+
+    public ArrayList<CartModel> getAllRecords(String orderBy) {
+        ArrayList<CartModel> cartModelList = new ArrayList<>();
+        String selectQuery = "Select * from " + Constants.TABLE_NAME + " WHERE " + Constants.C_NAME  ////////;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                CartModel cartModel = new CartModel(
+                        ""+cursor.getString(cursor.getColumnIndexOrThrow(Constants.C_NAME)),
+                        ""+cursor.getString(cursor.getColumnIndexOrThrow(Constants.C_NAME)),
+                        ""+cursor.getString(cursor.getColumnIndexOrThrow(Constants.C_ITEM))
+                );
+
+                cartModelList.add(cartModel);
+            } while (cursor.moveToNext());
+        }
+        db.close();
+
+        return cartModelList;
+    }
+
 }
 

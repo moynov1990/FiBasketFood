@@ -3,7 +3,10 @@ package com.example.fibasketfood.Model;
 public class CartModel {
     private String Name, Quantity, Item;
 
-    public CartModel() {
+    public CartModel(String name, String quantity, String item) {
+        Name = name;
+        Quantity = quantity;
+        Item = item;
     }
 
     public String getName() {
