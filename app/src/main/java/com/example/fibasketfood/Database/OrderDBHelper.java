@@ -76,7 +76,7 @@ public class OrderDBHelper extends SQLiteOpenHelper {
 
     public ArrayList<CartModel> getAllRecords(String orderBy) {
         ArrayList<CartModel> cartModelList = new ArrayList<>();
-        String selectQuery = "Select * from " + Constants.TABLE_NAME + " WHERE " + Constants.C_NAME  ////////;
+        String selectQuery = "Select * from " + Constants.TABLE_NAME + " ORDER BY " + orderBy; ////////;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -85,7 +85,7 @@ public class OrderDBHelper extends SQLiteOpenHelper {
             do {
                 CartModel cartModel = new CartModel(
                         ""+cursor.getString(cursor.getColumnIndexOrThrow(Constants.C_NAME)),
-                        ""+cursor.getString(cursor.getColumnIndexOrThrow(Constants.C_NAME)),
+                        ""+cursor.getString(cursor.getColumnIndexOrThrow(Constants.C_QUANTITY)),
                         ""+cursor.getString(cursor.getColumnIndexOrThrow(Constants.C_ITEM))
                 );
 
