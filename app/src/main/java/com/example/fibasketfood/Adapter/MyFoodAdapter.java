@@ -101,10 +101,7 @@ public class MyFoodAdapter extends RecyclerView.Adapter<MyFoodAdapter.MyFoodView
         ImageView imgFoodView;
         TextView txtFoodName;
 
-
         ItemClickListener listener;
-
-
 
         public void setListener(ItemClickListener listener) {
             this.listener = listener;

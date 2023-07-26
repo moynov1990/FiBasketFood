@@ -34,4 +34,9 @@ public class CartActivity extends AppCompatActivity {
         recyclerCart.setAdapter(cartAdapter);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadRecords();
+    }
 }

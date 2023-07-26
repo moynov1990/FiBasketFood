@@ -18,15 +18,15 @@ import java.util.ArrayList;
 public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.MyCartViewHolder> {
 
     private Context context;
-    ArrayList<CartModel> cartModelList;
+    ArrayList<CartModel> recordsList;
 //    String quantity = "1";
 //    String item = "шт";
 //    OrderDBHelper dbHelper;
 
 
-    public MyCartAdapter(Context context, ArrayList<CartModel> cartModelList) {
+    public MyCartAdapter(Context context, ArrayList<CartModel> recordsList) {
         this.context = context;
-        this.cartModelList = cartModelList;
+        this.recordsList = recordsList;
     }
 
     @NonNull
@@ -38,7 +38,7 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.MyCartView
 
     @Override
     public void onBindViewHolder(@NonNull MyCartViewHolder holder, int position) {
-        CartModel cartModel = cartModelList.get(position);
+        CartModel cartModel = recordsList.get(position);
 
         String name = cartModel.getName();
         String quantity = cartModel.getQuantity();
@@ -51,7 +51,7 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.MyCartView
 
     @Override
     public int getItemCount() {
-        return cartModelList.size();
+        return recordsList.size();
     }
 
 
