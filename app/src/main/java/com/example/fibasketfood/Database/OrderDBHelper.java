@@ -8,10 +8,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
-import com.example.fibasketfood.Model.CartModel;
-
-import java.util.ArrayList;
-
 public class OrderDBHelper extends SQLiteOpenHelper {
 
     public OrderDBHelper(@Nullable Context context) {
@@ -47,6 +43,14 @@ public class OrderDBHelper extends SQLiteOpenHelper {
         return id;
     }
 
+    public Cursor getData() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("Select * from " + Constants.TABLE_NAME, null);
+        return cursor;
+    }
+}
+
+
 //    public long insertRecord(String name, String quantity, String item) {
 //
 //        SQLiteDatabase db = this.getWritableDatabase();
@@ -74,28 +78,28 @@ public class OrderDBHelper extends SQLiteOpenHelper {
 //        return 0;
 //    }
 
-    public ArrayList<CartModel> getAllRecords(String orderBy) {
-        ArrayList<CartModel> recordsList = new ArrayList<>();
-        String selectQuery = "Select * from " + Constants.TABLE_NAME + " ORDER BY " + orderBy; ////////;
+//    public ArrayList<CartModel> getAllRecords(String orderBy) {
+//        ArrayList<CartModel> recordsList = new ArrayList<>();
+//        String selectQuery = "Select * from " + Constants.TABLE_NAME + " ORDER BY " + orderBy; ////////;
+//
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        Cursor cursor = db.rawQuery(selectQuery, null);
+//
+//        if (cursor.moveToFirst()) {
+//            do {
+//                CartModel cartModel = new CartModel(
+//                        ""+cursor.getString(cursor.getColumnIndexOrThrow(Constants.C_NAME)),
+//                        ""+cursor.getString(cursor.getColumnIndexOrThrow(Constants.C_QUANTITY)),
+//                        ""+cursor.getString(cursor.getColumnIndexOrThrow(Constants.C_ITEM))
+//                );
+//
+//                recordsList.add(cartModel);
+//            } while (cursor.moveToNext());
+//        }
+//        db.close();
+//
+//        return recordsList;
+//    }
 
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
 
-        if (cursor.moveToFirst()) {
-            do {
-                CartModel cartModel = new CartModel(
-                        ""+cursor.getString(cursor.getColumnIndexOrThrow(Constants.C_NAME)),
-                        ""+cursor.getString(cursor.getColumnIndexOrThrow(Constants.C_QUANTITY)),
-                        ""+cursor.getString(cursor.getColumnIndexOrThrow(Constants.C_ITEM))
-                );
-
-                recordsList.add(cartModel);
-            } while (cursor.moveToNext());
-        }
-        db.close();
-
-        return recordsList;
-    }
-
-}
 

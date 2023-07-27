@@ -61,8 +61,6 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.MyCartView
 
         ItemClickListener listener;
 
-
-
         public void setListener(ItemClickListener listener) {
             this.listener = listener;
         }
