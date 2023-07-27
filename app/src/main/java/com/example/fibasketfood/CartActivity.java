@@ -35,6 +35,7 @@ public class CartActivity extends AppCompatActivity {
     }
 
     private ArrayList<CartModel> displayData() {
+        ArrayList<CartModel> recordsList = new ArrayList<>();
         Cursor cursor = dbHelper.getData();
 
         if (cursor.moveToFirst()) {
