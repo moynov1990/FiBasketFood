@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fibasketfood.Adapter.MyCartAdapter;
@@ -29,6 +30,7 @@ public class CartActivity extends AppCompatActivity {
         dbHelper = new OrderDBHelper(this);
         cartAdapter = new MyCartAdapter(CartActivity.this, recordsList);
         recyclerCart.setAdapter(cartAdapter);
+        recyclerCart.setLayoutManager(new LinearLayoutManager(this));
 
         displayData();
 

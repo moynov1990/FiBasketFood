@@ -45,7 +45,9 @@ public class OrderDBHelper extends SQLiteOpenHelper {
 
     public Cursor getData() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("Select * from " + Constants.TABLE_NAME, null);
+        String qry = "Select * from " + Constants.TABLE_NAME + " ORDER BY " + Constants.C_ID + " DESC";
+//        String qry = "Select * from MY_RECORDS_TABLE ORDER BY ID DESC";
+        Cursor cursor = db.rawQuery(qry, null);
         return cursor;
     }
 }
