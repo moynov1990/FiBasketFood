@@ -1,9 +1,9 @@
 package com.example.fibasketfood.Adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,36 +17,29 @@ import java.util.ArrayList;
 
 public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.MyCartViewHolder> {
 
-    private Context context;
     ArrayList<CartModel> recordsList;
 //    String quantity = "1";
 //    String item = "шт";
 //    OrderDBHelper dbHelper;
 
 
-    public MyCartAdapter(Context context, ArrayList<CartModel> recordsList) {
-        this.context = context;
+    public MyCartAdapter(ArrayList<CartModel> recordsList) {
         this.recordsList = recordsList;
     }
 
     @NonNull
     @Override
     public MyCartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.cart_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cart_item, parent, false);
         return new MyCartViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyCartViewHolder holder, int position) {
-        CartModel cartModel = recordsList.get(position);
 
-        String name = cartModel.getName();
-        String quantity = cartModel.getQuantity();
-        String item = cartModel.getItem();
-
-        holder.itemName.setText(""+name);
-        holder.tvCount.setText(""+quantity);
-        holder.itemName.setText(""+item);
+        holder.itemName.setText(recordsList.get(position).getName());
+        holder.tvCount.setText(recordsList.get(position).getQuantity());
+        holder.itemName.setText(recordsList.get(position).getItem());
     }
 
     @Override
@@ -57,7 +50,8 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.MyCartView
 
     public class MyCartViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView txtCartFoodName, tvCount, itemName, imageMinus, imagePlus;
+        TextView txtCartFoodName, tvCount, itemName;
+        ImageView imageMinus, imagePlus;
 
         ItemClickListener listener;
 
@@ -69,10 +63,10 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.MyCartView
             super(itemView);
 
             txtCartFoodName = itemView.findViewById(R.id.txtCartFoodName);
-            tvCount = itemView.findViewById(R.id.tvCount);
+            tvCount = itemView.findViewById(R.id.tvCountC);
             itemName = itemView.findViewById(R.id.itemName);
-            imageMinus = itemView.findViewById(R.id.imageMinus);
-            imagePlus = itemView.findViewById(R.id.imagePlus);
+            imageMinus = itemView.findViewById(R.id.imageMinusC);
+            imagePlus = itemView.findViewById(R.id.imagePlusC);
         }
 
         @Override

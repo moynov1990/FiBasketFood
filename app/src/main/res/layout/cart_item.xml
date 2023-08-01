@@ -42,7 +42,7 @@
                 android:layout_marginStart="10dp" >
 
                 <ImageView
-                    android:id="@+id/imageMinus"
+                    android:id="@+id/imageMinusC"
                     android:layout_width="30dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
@@ -50,7 +50,7 @@
                     app:tint="@color/white" />
 
                 <TextView
-                    android:id="@+id/tvCount"
+                    android:id="@+id/tvCountC"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:fontFamily="monospace"
@@ -61,7 +61,7 @@
                     android:textSize="24sp" />
 
                 <ImageView
-                    android:id="@+id/imagePlus"
+                    android:id="@+id/imagePlusC"
                     android:layout_width="30dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"

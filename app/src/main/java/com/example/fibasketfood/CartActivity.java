@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fibasketfood.Adapter.MyCartAdapter;
-import com.example.fibasketfood.Database.Constants;
 import com.example.fibasketfood.Database.OrderDBHelper;
 import com.example.fibasketfood.Model.CartModel;
 
@@ -17,9 +16,7 @@ import java.util.ArrayList;
 public class CartActivity extends AppCompatActivity {
 
     RecyclerView recyclerCart;
-    ArrayList<CartModel> recordsList;
-    MyCartAdapter cartAdapter;
-
+    ArrayList<CartModel> recordsList = new ArrayList<>();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,16 +27,14 @@ public class CartActivity extends AppCompatActivity {
         Cursor cursor = new OrderDBHelper(this).getData();
 
         while (cursor.moveToNext()) {
-            CartModel cartModel = new CartModel(cursor.getString(1), cursor.getString(2), cursor.getString(3));
-            recordsList.add(cartModel);
+            CartModel obj = new CartModel(cursor.getString(1), cursor.getString(2), cursor.getString(3));
+            recordsList.add(obj);
         }
 
-        cartAdapter = new MyCartAdapter(CartActivity.this, recordsList);
+        MyCartAdapter cartAdapter = new MyCartAdapter(recordsList);
         recyclerCart.setAdapter(cartAdapter);
 
-
 //        displayData();
-
     }
 
 
