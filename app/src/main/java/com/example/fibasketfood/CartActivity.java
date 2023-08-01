@@ -19,42 +19,29 @@ public class CartActivity extends AppCompatActivity {
     RecyclerView recyclerCart;
     ArrayList<CartModel> recordsList;
     MyCartAdapter cartAdapter;
-    private OrderDBHelper dbHelper;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
         recyclerCart = findViewById(R.id.recyclerCart);
+        recyclerCart.setLayoutManager(new LinearLayoutManager(this));
+        Cursor cursor = new OrderDBHelper(this).getData();
 
-        dbHelper = new OrderDBHelper(this);
+        while (cursor.moveToNext()) {
+            CartModel cartModel = new CartModel(cursor.getString(1), cursor.getString(2), cursor.getString(3));
+            recordsList.add(cartModel);
+        }
+
         cartAdapter = new MyCartAdapter(CartActivity.this, recordsList);
         recyclerCart.setAdapter(cartAdapter);
-        recyclerCart.setLayoutManager(new LinearLayoutManager(this));
 
-        displayData();
+
+//        displayData();
 
     }
 
-    private ArrayList<CartModel> displayData() {
-        ArrayList<CartModel> recordsList = new ArrayList<>();
-        Cursor cursor = dbHelper.getData();
-
-        if (cursor.moveToFirst()) {
-            do {
-                CartModel cartModel = new CartModel(
-                        ""+cursor.getString(cursor.getColumnIndexOrThrow(Constants.C_NAME)),
-                        ""+cursor.getString(cursor.getColumnIndexOrThrow(Constants.C_QUANTITY)),
-                        ""+cursor.getString(cursor.getColumnIndexOrThrow(Constants.C_ITEM))
-                );
-
-                recordsList.add(cartModel);
-            } while (cursor.moveToNext());
-        }
-        dbHelper.close();
-
-        return recordsList;
-    }
 
 //        if(cursor.getCount()==0) {
 //            Toast.makeText(CartActivity.this, "No Entry Exists", Toast.LENGTH_SHORT).show();
