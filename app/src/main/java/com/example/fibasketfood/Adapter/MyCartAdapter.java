@@ -37,7 +37,7 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.MyCartView
     @Override
     public void onBindViewHolder(@NonNull MyCartViewHolder holder, int position) {
 
-        holder.itemName.setText(recordsList.get(position).getName());
+        holder.txtCartFoodName.setText(recordsList.get(position).getName());
         holder.tvCount.setText(recordsList.get(position).getQuantity());
         holder.itemName.setText(recordsList.get(position).getItem());
     }

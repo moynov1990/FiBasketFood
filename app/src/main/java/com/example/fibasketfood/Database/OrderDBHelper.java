@@ -26,22 +26,37 @@ public class OrderDBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public long insertRecord(String name, String quantity, String item) {
+        public long insertRecord(String name, String quantity, String item) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
 
-        values.put(Constants.C_NAME, name);
-        values.put(Constants.C_QUANTITY, quantity);
-        values.put(Constants.C_ITEM, item);
+        Cursor cursor = db.rawQuery("Select * from MY_RECORDS_TABLE where name = ?", new String[] {name});
+        if(cursor.getCount()>0) {
 
-        long id = db.insert(Constants.TABLE_NAME, null, values);
+            values.put(Constants.C_QUANTITY, quantity);
+            values.put(Constants.C_ITEM, item);
 
-        db.close();
+            long id = db.update(Constants.TABLE_NAME, values, "name=?", new String[]{name});
 
-        return id;
+            cursor.close();
+            db.close();
+            return id;
+
+        } else {
+            values.put(Constants.C_NAME, name);
+            values.put(Constants.C_QUANTITY, quantity);
+            values.put(Constants.C_ITEM, item);
+
+            long id = db.insert(Constants.TABLE_NAME, null, values);
+
+            cursor.close();
+            db.close();
+            return id;
+        }
     }
+
 
     public Cursor getData() {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -58,7 +73,6 @@ public class OrderDBHelper extends SQLiteOpenHelper {
 //        SQLiteDatabase db = this.getWritableDatabase();
 //
 //        ContentValues values = new ContentValues();
-//
 //
 //        Cursor cursor = db.rawQuery("Select * from MY_RECORDS_TABLE where name = ?", new String[] {name});
 //        if(cursor.getCount()>0) {
@@ -80,27 +94,22 @@ public class OrderDBHelper extends SQLiteOpenHelper {
 //        return 0;
 //    }
 
-//    public ArrayList<CartModel> getAllRecords(String orderBy) {
-//        ArrayList<CartModel> recordsList = new ArrayList<>();
-//        String selectQuery = "Select * from " + Constants.TABLE_NAME + " ORDER BY " + orderBy; ////////;
+
+//    public long insertRecord(String name, String quantity, String item) {
 //
 //        SQLiteDatabase db = this.getWritableDatabase();
-//        Cursor cursor = db.rawQuery(selectQuery, null);
 //
-//        if (cursor.moveToFirst()) {
-//            do {
-//                CartModel cartModel = new CartModel(
-//                        ""+cursor.getString(cursor.getColumnIndexOrThrow(Constants.C_NAME)),
-//                        ""+cursor.getString(cursor.getColumnIndexOrThrow(Constants.C_QUANTITY)),
-//                        ""+cursor.getString(cursor.getColumnIndexOrThrow(Constants.C_ITEM))
-//                );
+//        ContentValues values = new ContentValues();
 //
-//                recordsList.add(cartModel);
-//            } while (cursor.moveToNext());
-//        }
+//        values.put(Constants.C_NAME, name);
+//        values.put(Constants.C_QUANTITY, quantity);
+//        values.put(Constants.C_ITEM, item);
+//
+//        long id = db.insert(Constants.TABLE_NAME, null, values);
+//
 //        db.close();
 //
-//        return recordsList;
+//        return id;
 //    }
 
 
