@@ -1,5 +1,6 @@
 package com.example.fibasketfood.Adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.fibasketfood.Database.OrderDBHelper;
 import com.example.fibasketfood.Interface.ItemClickListener;
 import com.example.fibasketfood.Model.CartModel;
 import com.example.fibasketfood.R;
@@ -20,11 +22,13 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.MyCartView
     ArrayList<CartModel> recordsList;
 //    String quantity = "1";
 //    String item = "шт";
-//    OrderDBHelper dbHelper;
+    OrderDBHelper dbHelper;
+//    private Context context;
 
 
     public MyCartAdapter(ArrayList<CartModel> recordsList) {
         this.recordsList = recordsList;
+//        this.context = context;
     }
 
     @NonNull
@@ -32,6 +36,7 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.MyCartView
     public MyCartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cart_item, parent, false);
         return new MyCartViewHolder(view);
+//        dbHelper = new OrderDBHelper(context);
     }
 
     @Override
@@ -51,7 +56,7 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.MyCartView
     public class MyCartViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView txtCartFoodName, tvCount, itemName;
-        ImageView imageMinus, imagePlus;
+        ImageView imageMinus, imagePlus, imgDelFromBasket;
 
         ItemClickListener listener;
 
@@ -67,7 +72,17 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.MyCartView
             itemName = itemView.findViewById(R.id.itemName);
             imageMinus = itemView.findViewById(R.id.imageMinusC);
             imagePlus = itemView.findViewById(R.id.imagePlusC);
+            imgDelFromBasket = itemView.findViewById(R.id.imgDelFromBasket);
+
+            imgDelFromBasket.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+
         }
+
 
         @Override
         public void onClick(View v) {

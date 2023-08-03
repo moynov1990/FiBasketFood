@@ -28,7 +28,7 @@ import com.nex3z.notificationbadge.NotificationBadge;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeActivity extends AppCompatActivity implements CategoryLoadListener, CartLoadListener {
+public class HomeActivity extends AppCompatActivity implements CategoryLoadListener {
 
     RecyclerView recyclerMenu;
     DrawerLayout drawerLayout;
@@ -92,7 +92,6 @@ public class HomeActivity extends AppCompatActivity implements CategoryLoadListe
 
     private void init() {
         categoryLoadListener = this;
-        cartLoadListener = this;
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 1);
         recyclerMenu.setLayoutManager(gridLayoutManager);
@@ -110,15 +109,6 @@ public class HomeActivity extends AppCompatActivity implements CategoryLoadListe
         Snackbar.make(drawerLayout, message, Snackbar.LENGTH_LONG).show();
     }
 
-    @Override
-    public void onCartLoadSuccess(List<CartModel> cartModelList) {
-
-    }
-
-    @Override
-    public void onCartLoadFailed(String message) {
-
-    }
 
     public void onBackPressed() {
         Intent BackToMain = new Intent(HomeActivity.this, MainActivity.class);
