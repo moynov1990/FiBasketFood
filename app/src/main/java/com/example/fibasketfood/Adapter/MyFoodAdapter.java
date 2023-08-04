@@ -56,13 +56,17 @@ public class MyFoodAdapter extends RecyclerView.Adapter<MyFoodAdapter.MyFoodView
                 String itemTV = ""+item.toString().trim();
 
 
-                long id = dbHelper.insertRecord(
+                long result = dbHelper.insertRecord(
                         ""+foodNameTV,
                         ""+quantityTV,
                         ""+itemTV
                 );
 
-                Toast.makeText(context, "Added against ID: "+id, Toast.LENGTH_SHORT).show();
+                if(result > 0) {
+                    Toast.makeText(context, "Додано в кошик" + result, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "Fail" + result, Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

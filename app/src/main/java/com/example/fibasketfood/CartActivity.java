@@ -24,6 +24,7 @@ public class CartActivity extends AppCompatActivity {
 
         recyclerCart = findViewById(R.id.recyclerCart);
         recyclerCart.setLayoutManager(new LinearLayoutManager(this));
+
         Cursor cursor = new OrderDBHelper(this).getData();
 
         while (cursor.moveToNext()) {

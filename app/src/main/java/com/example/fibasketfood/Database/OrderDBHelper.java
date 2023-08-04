@@ -41,22 +41,22 @@ public class OrderDBHelper extends SQLiteOpenHelper {
             values.put(Constants.C_QUANTITY, quantity);
             values.put(Constants.C_ITEM, item);
 
-            long id = db.update(Constants.TABLE_NAME, values, "name=?", new String[]{name});
+            long result = db.update(Constants.TABLE_NAME, values, "name=?", new String[]{name});
 
             cursor.close();
             db.close();
-            return id;
+            return result;
 
         } else {
             values.put(Constants.C_NAME, name);
             values.put(Constants.C_QUANTITY, quantity);
             values.put(Constants.C_ITEM, item);
 
-            long id = db.insert(Constants.TABLE_NAME, null, values);
+            long result = db.insert(Constants.TABLE_NAME, null, values);
 
             cursor.close();
             db.close();
-            return id;
+            return result;
         }
     }
 
