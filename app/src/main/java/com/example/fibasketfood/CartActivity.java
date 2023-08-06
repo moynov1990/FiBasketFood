@@ -28,11 +28,11 @@ public class CartActivity extends AppCompatActivity {
         Cursor cursor = new OrderDBHelper(this).getData();
 
         while (cursor.moveToNext()) {
-            CartModel obj = new CartModel(cursor.getString(1), cursor.getString(2), cursor.getString(3));
+            CartModel obj = new CartModel(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3));
             recordsList.add(obj);
         }
 
-        MyCartAdapter cartAdapter = new MyCartAdapter(recordsList);
+        MyCartAdapter cartAdapter = new MyCartAdapter(this, recordsList);
         recyclerCart.setAdapter(cartAdapter);
 
 //        displayData();

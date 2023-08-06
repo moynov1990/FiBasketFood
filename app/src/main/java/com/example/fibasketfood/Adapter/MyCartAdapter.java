@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,12 +24,13 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.MyCartView
 //    String quantity = "1";
 //    String item = "шт";
     OrderDBHelper dbHelper;
-//    private Context context;
+    private Context context;
 
 
-    public MyCartAdapter(ArrayList<CartModel> recordsList) {
+    public MyCartAdapter(Context context, ArrayList<CartModel> recordsList) {
+        this.context = context;
         this.recordsList = recordsList;
-//        this.context = context;
+        dbHelper = new OrderDBHelper(context);
     }
 
     @NonNull
@@ -42,9 +44,26 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.MyCartView
     @Override
     public void onBindViewHolder(@NonNull MyCartViewHolder holder, int position) {
 
-        holder.txtCartFoodName.setText(recordsList.get(position).getName());
-        holder.tvCount.setText(recordsList.get(position).getQuantity());
-        holder.itemName.setText(recordsList.get(position).getItem());
+        final CartModel cartModel = recordsList.get(position);
+        holder.txtCartFoodName.setText(cartModel.getName());
+        holder.tvCount.setText(cartModel.getQuantity());
+        holder.itemName.setText(cartModel.getItem());
+
+        holder.imgDelFromBasket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                long result = dbHelper.deleteOneRecord(cartModel.getId());
+
+                if(result > 0) {
+                    Toast.makeText(context, "Видалено з кошика", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "Fail" + result, Toast.LENGTH_SHORT).show();
+                }
+                recordsList.remove(position);
+                notifyItemChanged(position);
+                notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
@@ -74,15 +93,7 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.MyCartView
             imagePlus = itemView.findViewById(R.id.imagePlusC);
             imgDelFromBasket = itemView.findViewById(R.id.imgDelFromBasket);
 
-            imgDelFromBasket.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
-
         }
-
 
         @Override
         public void onClick(View v) {

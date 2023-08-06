@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -60,14 +59,11 @@ public class OrderDBHelper extends SQLiteOpenHelper {
         }
     }
 
-    void deleteOneRecord(String id) {
+    public long deleteOneRecord(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
         long result = db.delete(Constants.TABLE_NAME, "id=?", new String[]{id});
-        if(result == -1) {
-            Toast.makeText(context, "Fail to delete One Record", Toast.LENGTH_SHORT).show();
-        }else {
-            Toast.makeText(context, "Successfully deleted", Toast.LENGTH_SHORT).show();
-        }
+        db.close();
+        return result;
     }
 
 
