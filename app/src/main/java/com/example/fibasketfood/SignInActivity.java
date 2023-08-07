@@ -58,6 +58,8 @@ public class SignInActivity extends AppCompatActivity {
                                 Common.currentUser = user;                                                              //записуємо User в тимчасове сховище
                                 startActivity(homeIntent);
                                 finish();
+                                Intent cartIntent = new Intent(SignInActivity.this, CartActivity.class);
+                                cartIntent.putExtra("orderBy", String.valueOf(edtTxtLogin));
                             } else {
                                 Toast.makeText(SignInActivity.this, "Sign in failed", Toast.LENGTH_LONG).show();
                             }
