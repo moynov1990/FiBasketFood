@@ -28,7 +28,7 @@ public class OrderDBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-        public long insertRecord(String name, String quantity, String item) {
+        public long insertRecord(String categoryID, String foodID, String name, String quantity, String item) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -47,6 +47,8 @@ public class OrderDBHelper extends SQLiteOpenHelper {
             return result;
 
         } else {
+            values.put(Constants.C_CATEGORYID, categoryID);
+            values.put(Constants.C_FOODID, foodID);
             values.put(Constants.C_NAME, name);
             values.put(Constants.C_QUANTITY, quantity);
             values.put(Constants.C_ITEM, item);
@@ -69,7 +71,7 @@ public class OrderDBHelper extends SQLiteOpenHelper {
 
     public Cursor getData() {
         SQLiteDatabase db = this.getWritableDatabase();
-        String qry = "Select * from " + Constants.TABLE_NAME + " ORDER BY " + Constants.C_ID + " DESC";
+        String qry = "Select * from " + Constants.TABLE_NAME + " ORDER BY " + Constants.C_CATEGORYID + " DESC";
 //        String qry = "Select * from MY_RECORDS_TABLE ORDER BY ID DESC";
         Cursor cursor = db.rawQuery(qry, null);
         return cursor;

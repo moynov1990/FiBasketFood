@@ -46,16 +46,22 @@ public class MyFoodAdapter extends RecyclerView.Adapter<MyFoodAdapter.MyFoodView
         holder.txtFoodName.setText(new StringBuilder().append(foodModelList.get(position).getName()));
 
         FoodModel model = foodModelList.get(position);
+        String categoryID = model.getCategoryID();
+        String foodID = model.getFoodID();
         String foodName = model.getName();
 
         holder.setListener(new ItemClickListener() {
             @Override
             public void onItemClick(View view, int adapterPosition) {
+                String categoryIDTV = ""+categoryID.toString().trim();
+                String foodIDTV = ""+foodID.toString().trim();
                 String foodNameTV = ""+foodName.toString().trim();
                 String quantityTV = ""+quantity.toString().trim();
                 String itemTV = ""+item.toString().trim();
 
                 long result = dbHelper.insertRecord(
+                        ""+categoryIDTV,
+                        ""+foodIDTV,
                         ""+foodNameTV,
                         ""+quantityTV,
                         ""+itemTV

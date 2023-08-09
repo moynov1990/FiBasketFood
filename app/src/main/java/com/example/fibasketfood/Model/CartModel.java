@@ -1,10 +1,12 @@
 package com.example.fibasketfood.Model;
 
 public class CartModel {
-    private String Id, Name, Quantity, Item;
+    private String Id, CategoryID, FoodID, Name, Quantity, Item;
 
-    public CartModel(String id, String name, String quantity, String item) {
+    public CartModel(String id, String categoryID, String foodID, String name, String quantity, String item) {
         Id = id;
+        CategoryID = categoryID;
+        FoodID = foodID;
         Name = name;
         Quantity = quantity;
         Item = item;
@@ -16,6 +18,22 @@ public class CartModel {
 
     public void setId(String id) {
         Id = id;
+    }
+
+    public String getCategoryID() {
+        return CategoryID;
+    }
+
+    public void setCategoryID(String categoryID) {
+        CategoryID = categoryID;
+    }
+
+    public String getFoodID() {
+        return FoodID;
+    }
+
+    public void setFoodID(String foodID) {
+        FoodID = foodID;
     }
 
     public String getName() {

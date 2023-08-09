@@ -40,7 +40,7 @@ public class CartActivity extends AppCompatActivity {
         Cursor cursor = new OrderDBHelper(this).getData();
 
         while (cursor.moveToNext()) {
-            CartModel obj = new CartModel(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3));
+            CartModel obj = new CartModel(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5));
             recordsList.add(obj);
         }
 
@@ -71,24 +71,28 @@ public class CartActivity extends AppCompatActivity {
         hashMap.put("orderTime", ""+timestamp);
         hashMap.put("orderStatus", "В Процесі");
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("User").child("123").child("Orders");   // .child("123") - foodId
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("User").child("Orders");   // .child("123") - foodId
         ref.child(timestamp).setValue(hashMap)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         for (int i = 0; i < recordsList.size(); i++) {
-                            String foodId = recordsList.get(i).getId();
+                            String id = recordsList.get(i).getId();
+                            String categoryID = recordsList.get(i).getCategoryID();
+                            String foodId = recordsList.get(i).getFoodID();
                             String foodName = recordsList.get(i).getName();
                             String quantity = recordsList.get(i).getQuantity();
                             String item = recordsList.get(i).getItem();
 
                             HashMap<String, String> hashMap1 = new HashMap<> ();
+                            hashMap1.put("id", id);
+                            hashMap1.put("categoryID", categoryID);
                             hashMap1.put("foodId", foodId);
                             hashMap1.put("foodName", foodName);
                             hashMap1.put("quantity", quantity);
                             hashMap1.put("item", item);
 
-                            ref.child(timestamp).child("Items").setValue(hashMap1);
+                            ref.child(timestamp).child("Items").child(foodId).setValue(hashMap1);
                         }
                         Toast.makeText(CartActivity.this, "Замовлення розміщено", Toast.LENGTH_SHORT).show();
                     }
